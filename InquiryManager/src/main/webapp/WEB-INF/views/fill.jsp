@@ -17,9 +17,17 @@
   
 <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="addQuestion" commandName="question">
+
+<c:url var="saveUrl" value="addQuestion?id=${inquiry.id}" />
+<form:form method="post" action="${saveUrl}" commandName="question">
 
 	<table>
+		<tr>
+		   	<td><form:label path="id">
+				<spring:message code="label.id" />
+			</form:label></td>
+  		<td><input type="number" value="${inquiry.id}" disabled="true"/>
+		</tr>
 
 		<tr>
 			<td><form:label path="body">
@@ -27,10 +35,19 @@
 			</form:label></td>
 			<td><form:input path="body" /></td>
 		</tr>
+
 		<tr>
-			<td colspan="1"><input type="submit"
+			<td><form:label path="multivalue">
+				<spring:message code="label.multivalue" />
+			</form:label></td>
+			<td><form:radiobutton path="multivalue" value="true"/>TRUE <form:radiobutton path="multivalue" value="false"/>FALSE</td>
+		</tr>
+
+		<tr>
+			<td><input type="submit"
 				value="<spring:message code="label.addquestion"/>" /></td>
 		</tr>
+
 	</table>
 </form:form>
 
@@ -44,12 +61,11 @@
 		<c:forEach items="${inquiry.getQuestions()}" var="question">
 			<tr>
 				<td>${question.body}</td>
+				<td>${question.multivalue}</td>
 				<td><a href="delete/question/${question.id}"><spring:message code="label.delete" /></a></td>
 				<td><a href="fill/${question.id}"><spring:message code="label.fill" /></a></td>
 			</tr>
 		</c:forEach>
-
-
 
 	</table>
 </c:if>

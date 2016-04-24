@@ -12,14 +12,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="QUESTION")
 
-
 public class Question {
 	
 	@Id
-	@Column(name = "QUESTION_ID")
+	@Column(name = "ID")
 	@GeneratedValue
 	private Long id;
 	
+	@ManyToOne
+    @JoinColumn(name="INQUIRY_ID")
+	private Inquiry inquiry;
 	
 	@Column(name = "BODY")
 	private String body;
@@ -45,6 +47,13 @@ public class Question {
 		this.body = body;
 	}
 
+	public Inquiry getInquiry() {
+		return inquiry;
+	}
+
+	public void setInquiry(Inquiry inquiry) {
+		this.inquiry = inquiry;
+	}
 
 	public Boolean getMultivalue() {
 		return multivalue;

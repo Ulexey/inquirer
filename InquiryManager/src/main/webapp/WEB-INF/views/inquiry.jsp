@@ -26,6 +26,7 @@
 			</form:label></td>
 			<td><form:input path="body" /></td>
 		</tr>
+		
 		<tr>
 			<td><input type="submit"
 				value="<spring:message code="label.addinquiry"/>" /></td>

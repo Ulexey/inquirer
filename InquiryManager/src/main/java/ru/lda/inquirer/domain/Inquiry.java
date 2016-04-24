@@ -20,20 +20,15 @@ import javax.persistence.CascadeType;
 public class Inquiry {
 	
 	@Id
-	@Column(name = "INQUIRY_ID")
+	@Column(name = "ID")
 	@GeneratedValue
 	private Long id;
 	
 	@Column(name = "BODY")
 	private String body;
 	
-	@OneToMany (cascade = CascadeType.ALL)
+	@OneToMany (mappedBy="inquiry",cascade = CascadeType.ALL)
 	@OrderBy (value = "id")
-    @JoinTable(
-            name = "INQUIRY_QUESTION",
-            joinColumns = @javax.persistence.JoinColumn (name="INQUIRY_ID"),
-            inverseJoinColumns = @javax.persistence.JoinColumn(name = "QUESTION_ID")        
-    )
 	private List<Question> questions;
 
 	public List<Question> getQuestions() {

@@ -1,6 +1,5 @@
 package ru.lda.inquirer.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.lda.inquirer.domain.Inquiry;
 import ru.lda.inquirer.domain.Question;
@@ -43,11 +43,12 @@ public class InquiryController {
 	}
 
 	@RequestMapping(value="/fill/addQuestion",method=RequestMethod.POST)
-	public String addQuestion(@ModelAttribute("question") Question question, BindingResult result){
+	public String addQuestion(@RequestParam("id") Long inquiryId,@ModelAttribute("question") Question question, BindingResult result){
+		question.setInquiry(inquiryService.findInquiryById(inquiryId));
 		questionService.addQuestion(question);
-		return "redirect:/index";
+		String redirectUrl="redirect:/fill/"+inquiryId;
+		return redirectUrl;
 	}
-
 	
 	@RequestMapping("/delete/inquiry/{inquiryId}")
 	public String deleteInquiry(@PathVariable("inquiryId") Long inquiryId){
@@ -55,7 +56,6 @@ public class InquiryController {
 		return "redirect:/index";
 	}
 
-	
 	@RequestMapping("/fill/{inquiryId}")
 	public String fillInquiry(@PathVariable("inquiryId") Long inquiryId, ModelMap map ){
 		map.put("inquiry",inquiryService.findInquiryById(inquiryId));
