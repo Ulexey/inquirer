@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -13,24 +14,26 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
 @Entity
-@Table(name="INQUIRIES")
+@Table(name="INQUIRY")
 
 
 public class Inquiry {
 	
 	@Id
-	@Column(name = "ID")
+	@Column(name = "INQUIRY_ID")
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name = "SUBJECT")
-	private String subject;
-
 	@Column(name = "BODY")
 	private String body;
 	
 	@OneToMany (cascade = CascadeType.ALL)
 	@OrderBy (value = "id")
+    @JoinTable(
+            name = "INQUIRY_QUESTION",
+            joinColumns = @javax.persistence.JoinColumn (name="INQUIRY_ID"),
+            inverseJoinColumns = @javax.persistence.JoinColumn(name = "QUESTION_ID")        
+    )
 	private List<Question> questions;
 
 	public List<Question> getQuestions() {
@@ -48,14 +51,6 @@ public class Inquiry {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
 	}
 
 	public String getBody() {

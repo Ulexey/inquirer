@@ -4,25 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="QUESTIONS")
+@Table(name="QUESTION")
 
 
 public class Question {
 	
 	@Id
-	@Column(name = "ID")
+	@Column(name = "QUESTION_ID")
 	@GeneratedValue
 	private Long id;
+	
 	
 	@Column(name = "BODY")
 	private String body;
 
 	
-	@Column(name = "SINGLE")
-	private Boolean single;
+	@Column(name = "MULTIVALUE")
+	private Boolean multivalue;
 	
 	
 	public Long getId() {
@@ -41,13 +45,15 @@ public class Question {
 		this.body = body;
 	}
 
-	public Boolean getSingle() {
-		return single;
+
+	public Boolean getMultivalue() {
+		return multivalue;
 	}
 
-	public void setSingle(Boolean single) {
-		this.single = single;
+	public void setMultivalue(Boolean multivalue) {
+		this.multivalue = multivalue;
 	}
+
 	
 	
 

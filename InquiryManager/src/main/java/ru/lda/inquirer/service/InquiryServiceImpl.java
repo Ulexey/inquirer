@@ -37,8 +37,8 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Transactional
 	@Override
-	public Inquiry findInquiryById(Long inquiryId) {
-		return inquiryDAO.findInquiryById(inquiryId);
+	public Inquiry findInquiryById(Long id) {
+		return inquiryDAO.findInquiryById(id);
 	}
 
 

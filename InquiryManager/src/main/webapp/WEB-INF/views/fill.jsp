@@ -17,7 +17,7 @@
   
 <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="add" commandName="question">
+<form:form method="post" action="addQuestion" commandName="question">
 
 	<table>
 

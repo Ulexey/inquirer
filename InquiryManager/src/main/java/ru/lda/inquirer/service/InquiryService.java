@@ -6,6 +6,6 @@ import ru.lda.inquirer.domain.Inquiry;
 public interface InquiryService extends InquiryDAO{
 
 
-	Inquiry findInquiryById(Long inquiryId);
+	Inquiry findInquiryById(Long id);
 
 }

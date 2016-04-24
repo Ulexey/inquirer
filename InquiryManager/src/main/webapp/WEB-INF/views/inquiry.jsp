@@ -17,15 +17,9 @@
   
 <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="add" commandName="inquiry">
+<form:form method="post" action="addInquiry" commandName="inquiry">
 
 	<table>
-		<tr>
-			<td><form:label path="subject">
-				<spring:message code="label.subject" />
-			</form:label></td>
-			<td><form:input path="subject" /></td>
-		</tr>
 		<tr>
 			<td><form:label path="body">
 				<spring:message code="label.body" />
@@ -33,7 +27,7 @@
 			<td><form:input path="body" /></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit"
+			<td><input type="submit"
 				value="<spring:message code="label.addinquiry"/>" /></td>
 		</tr>
 	</table>
@@ -43,19 +37,17 @@
 <c:if test="${!empty inquiryList}">
 	<table class="data">
 		<tr>
-			<th><spring:message code="label.subject" />,<spring:message code="label.body" /></th>
+			<th><spring:message code="label.body" /></th>
 			<th>&nbsp;</th>
 		</tr>
 		<c:forEach items="${inquiryList}" var="inquiry">
 			<tr>
-				<td>${inquiry.subject}, ${inquiry.body}</td>
+				<td>${inquiry.body}</td>
 				<td><a href="delete/inquiry/${inquiry.id}"><spring:message code="label.delete" /></a></td>
 				<td><a href="fill/${inquiry.id}"><spring:message code="label.fill" /></a></td>
 				<td><a href="execute/${inquiry.id}"><spring:message code="label.execute" /></a></td>
 			</tr>
 		</c:forEach>
-
-
 
 	</table>
 </c:if>
