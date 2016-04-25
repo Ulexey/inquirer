@@ -1,6 +1,9 @@
 drop table if exists answer;
+drop table if exists resultsurvey;
 drop table if exists question;
 drop table if exists inquiry;
+drop table if exists resultsurvey;
+drop table if exists survey;
 
 
 create table inquiry
@@ -8,6 +11,8 @@ create table inquiry
      id        int primary key auto_increment,
      body  varchar(1000) not null
   ) character set utf8 collate utf8_unicode_ci;
+  
+  
   
 create table question
   (
@@ -42,3 +47,29 @@ create table answer
   insert into answer (body,valid,question_id) values ("ответ2 на первый вопрос теста 2",false,2);
   insert into answer (body,valid,question_id) values ("ответ3 на первый вопрос теста 2",false,2);
   insert into answer (body,valid,question_id) values ("ответ4 на первый вопрос теста 2",true,2);
+
+  
+    
+create table survey
+  (
+     id        int primary key auto_increment,
+     fio  varchar(100) not null,
+     start_date datetime default null,
+     end_date datetime default null,
+     status varchar(100) default null,
+     inquiry_id int not null,
+     key fk_survey_inquiry_idx (inquiry_id),
+  	constraint fk_survey_inquiry foreign key (inquiry_id) references inquiry (id)
+
+  ) character set utf8 collate utf8_unicode_ci;  
+
+create table resultsurvey
+  (
+     id        int primary key auto_increment,
+     answer_id int not null,
+     survey_id int not null,
+     key fk_resultsurvey_survey_idx (survey_id),
+          key fk_resultsurvey_answer_idx (answer_id),
+  		constraint fk_resultsurvey_survey foreign key (survey_id) references survey (id),
+  		constraint fk_resultsurvey_answer foreign key (answer_id) references answer (id)
+  ) character set utf8 collate utf8_unicode_ci;  
