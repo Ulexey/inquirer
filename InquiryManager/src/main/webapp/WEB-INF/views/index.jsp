@@ -6,49 +6,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><spring:message code="label.title" /></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><spring:message code="label.title" /></title>
 </head>
 <body>
 
+<a href="<c:url value="/logout" />">
+	<spring:message code="label.logout" />
+</a>
 
-<h2><spring:message code="label.title" /></h2>
+<br/>
+<a href="<c:url value="/index" />"> 
+	<spring:message code="label.back" />
+</a><br/>
 
-<form:form method="post" action="addInquiry" commandName="inquiry">
+	<h2>
+		<spring:message code="label.inquiries" />
+	</h2>
 
-	<table>
-		<tr>
-			<td><form:label path="body">
-				<spring:message code="label.body" />
-			</form:label></td>
-			<td><form:input path="body" /></td>
-		</tr>
-		
-		<tr>
-			<td><input type="submit"
-				value="<spring:message code="label.addinquiry"/>" /></td>
-		</tr>
-	</table>
-</form:form>
+	<form:form method="post" action="addInquiry" commandName="inquiry">
 
-<h3><spring:message code="label.inquiries" /></h3>
-<c:if test="${!empty inquiryList}">
-	<table class="data">
-		<tr>
-			<th><spring:message code="label.body" /></th>
-			<th>&nbsp;</th>
-		</tr>
-		<c:forEach items="${inquiryList}" var="inquiry">
+		<table>
 			<tr>
-				<td>${inquiry.body}</td>
-				<td><a href="inquiry/delete/${inquiry.id}"><spring:message code="label.delete" /></a></td>
-				<td><a href="inquiry/${inquiry.id}"><spring:message code="label.edit" /></a></td>
-				<td><a href="inquiry/execute/${inquiry.id}"><spring:message code="label.execute" /></a></td>
-			</tr>
-		</c:forEach>
+				<td><form:label path="body">
+						<spring:message code="label.bodyinquiry" />
+					</form:label></td>
 
-	</table>
-</c:if>
+			</tr>
+			<tr>
+
+				<td><form:textarea path="body" rows="5" cols="30"/></td>
+			</tr>
+
+			<tr>
+				<td><input type="submit"
+					value="<spring:message code="label.addinquiry"/>" /></td>
+			</tr>
+		</table>
+	</form:form>
+
+	<h3>
+		<spring:message code="label.listInquiries" />
+	</h3>
+	<c:if test="${!empty inquiryList}">
+		<table class="data">
+			<c:forEach items="${inquiryList}" var="inquiry">
+				<tr>
+					<td>  <textarea rows="5" cols="30" readonly="readonly">${inquiry.body}</textarea>      </td>
+					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
+								code="label.delete" /></a><br/>
+					<a href="inquiry/${inquiry.id}"><spring:message
+								code="label.edit" /></a><br/>
+					<a href="inquiry/execute/${inquiry.id}"><spring:message
+								code="label.execute" /></a></td>
+				</tr>
+			</c:forEach>
+
+		</table>
+	</c:if>
 
 </body>
 </html>

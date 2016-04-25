@@ -6,68 +6,78 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><spring:message code="label.title" /></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><spring:message code="label.title" /></title>
 </head>
 <body>
 
-<a href="<c:url value="/logout" />">
-	<spring:message code="label.logout" />
-</a>
+	<a href="<c:url value="/logout" />"> <spring:message
+			code="label.logout" />
+	</a>
 
-<br/>
-<a href="<c:url value="/index" />"> 
-	<spring:message code="label.back" />
-</a><br/>
+	<br />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.back" />
+	</a>
+	<br />
 
-<h2><spring:message code="label.title" /></h2>
+	<h2>
+		<spring:message code="label.questions" />
+	</h2>
 
-<c:url var="saveUrl" value="../addQuestion?inquiryId=${inquiry.id}" />
-<form:form method="post" action="${saveUrl}" commandName="question">
-	<table>
-		<tr>
-		   	<td><form:label path="id">
-				<spring:message code="label.id" />
-			</form:label></td>
-  		<td><input type="number" value="${inquiry.id}" disabled="true"/>
-		</tr>
-		<tr>
-			<td><form:label path="body">
-				<spring:message code="label.body" />
-			</form:label></td>
-			<td><form:input path="body" /></td>
-		</tr>
-		<tr>
-			<td><form:label path="multivalue">
-				<spring:message code="label.multivalue" />
-			</form:label></td>
-			<td><form:radiobutton path="multivalue" value="true"/>TRUE <form:radiobutton path="multivalue" value="false"/>FALSE</td>
-		</tr>
-		<tr>
-			<td><input type="submit"
-				value="<spring:message code="label.addquestion"/>" /></td>
-		</tr>
-	</table>
-</form:form>
-
-<h3><spring:message code="label.questions" /></h3>
-<c:if test="${!empty inquiry.getQuestions()}">
-	<table class="data">
-		<tr>
-			<th><spring:message code="label.body" /></th>
-			<th><spring:message code="label.multivalue" /></th>
-			<th>&nbsp;</th>
-		</tr>
-		<c:forEach items="${inquiry.getQuestions()}" var="question">
+	<c:url var="saveUrl" value="../addQuestion?inquiryId=${inquiry.id}" />
+	<form:form method="post" action="${saveUrl}" commandName="question">
+		<table>
 			<tr>
-				<td>${question.body}</td>
-				<td>${question.multivalue}</td>
-				<td><a href="../question/delete/${question.id}?inquiryId=${inquiry.id}"><spring:message code="label.delete" /></a></td>
-				<td><a href="../inquiry/${inquiry.id}/question/${question.id}"><spring:message code="label.edit" /></a></td>
+
+				<td><input type="number" value="${inquiry.id}" disabled="true" />
 			</tr>
-		</c:forEach>
-	</table>
-</c:if>
+
+			<tr>
+				<td><form:label path="body">
+						<spring:message code="label.bodyQuestion" />
+					</form:label></td>
+			</tr>
+
+			<tr>
+				<td><form:textarea path="body" rows="5" cols="30" /></td>
+			</tr>
+			<tr>
+				<td><form:label path="multivalue">
+						<spring:message code="label.multivalue" />
+						<form:radiobutton path="multivalue" value="true" />Множественный
+							<form:radiobutton path="multivalue" value="false"
+							checked="checked" />Альтернативный
+
+					</form:label></td>
+			</tr>
+			<tr>
+				<td><input type="submit"
+					value="<spring:message code="label.addquestion"/>" /></td>
+			</tr>
+		</table>
+	</form:form>
+
+	<h3>
+		<spring:message code="label.listQuestions" />
+	</h3>
+	<c:if test="${!empty inquiry.getQuestions()}">
+		<table class="data">
+			<c:forEach items="${inquiry.getQuestions()}" var="question">
+				<tr>
+					<td><textarea rows="5" cols="30" readonly="readonly">${question.body}</textarea>
+					</td>
+					<td>Множественный? <br />${question.multivalue}</td>
+					<td><a
+						href="../question/delete/${question.id}?inquiryId=${inquiry.id}"><spring:message
+								code="label.delete" /></a> <br /> <a
+						href="../inquiry/${inquiry.id}/question/${question.id}"><spring:message
+								code="label.edit" /></a></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 
 
-</body></html>
+</body>
+</html>

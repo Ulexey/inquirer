@@ -6,7 +6,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http access-denied-page="/error403.jsp">
-	<intercept-url pattern="/*" access="ROLE_ADMIN" />
+<!-- ЭТО НАДО УБРАТь -->	<intercept-url pattern="/*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS" />
 		<intercept-url pattern="/add*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/delete/*" access="ROLE_ADMIN" />

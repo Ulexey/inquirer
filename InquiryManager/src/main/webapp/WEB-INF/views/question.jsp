@@ -6,74 +6,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><spring:message code="label.title" /></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><spring:message code="label.title" /></title>
 </head>
 <body>
 
-<a href="<c:url value="/logout" />">
-	<spring:message code="label.logout" />
-</a>
+	<a href="<c:url value="/logout" />"> <spring:message
+			code="label.logout" />
+	</a>
 
-<br/>
-<a href="<c:url value="../../${inquiry.id}" />"> 
-	<spring:message code="label.back" />
-</a><br/>
+	<br />
+	<a href="<c:url value=".." />"> <spring:message code="label.back" />
+	</a>
+	<br />
 
-<h2><spring:message code="label.title" /></h2>
+	<h2>
+		<spring:message code="label.answers" />
+	</h2>
 
 
-<c:url var="saveUrl" value="../../../addAnswer?questionId=${question.id}&inquiryId=${inquiry.id}" />
-<form:form method="post" action="${saveUrl}" commandName="answer">
+	<c:url var="saveUrl"
+		value="../../../addAnswer?questionId=${question.id}&inquiryId=${inquiry.id}" />
+	<form:form method="post" action="${saveUrl}" commandName="answer">
 
-	<table>
-		<tr>
-		   	<td><form:label path="id">
-				<spring:message code="label.id" />
-			</form:label></td>
-  		<td><input type="number" value="${question.id}" disabled="true"/>
-		</tr>
+		<table>
 
-		<tr>
-			<td><form:label path="body">
-				<spring:message code="label.body" />
-			</form:label></td>
-			<td><form:input path="body" /></td>
-		</tr>
-
-		<tr>
-			<td><form:label path="valid">
-				<spring:message code="label.valid" />
-			</form:label></td>
-			<td><form:radiobutton path="valid" value="true"/>TRUE <form:radiobutton path="valid" value="false"/>FALSE</td>
-		</tr>
-
-		<tr>
-			<td><input type="submit"
-				value="<spring:message code="label.addanswer"/>" /></td>
-		</tr>
-
-	</table>
-</form:form>
-
-<h3><spring:message code="label.answers" /></h3>
-<c:if test="${!empty question.getAnswers()}">
-	<table class="data">
-		<tr>
-			<th><spring:message code="label.body" /></th>
-			<th><spring:message code="label.valid" /></th>
-			<th>&nbsp;</th>
-		</tr>
-		<c:forEach items="${question.getAnswers()}" var="answer">
-			<tr>
-				<td>${answer.body}</td>
-				<td>${answer.valid}</td>
-				<td><a href="${question.id}/answer/${answer.id}/delete"><spring:message code="label.delete" /></a></td>
-				<td><a href="${question.id}/answer/${answer.id}"><spring:message code="label.edit" /></a></td>
+			<td><input type="number" value="${question.id}" disabled="true" />
 			</tr>
-		</c:forEach>
 
-	</table>
-</c:if>
+			<tr>
+				<td><form:label path="body">
+						<spring:message code="label.bodyAnswer" />
+					</form:label><br />
+				<form:textarea path="body" rows="5" cols="30" /></td>
+			</tr>
 
-</body></html>
+			<tr>
+				<td><form:label path="valid">
+						<spring:message code="label.valid" />
+					</form:label><br />
+				<form:radiobutton path="valid" value="true" />Правильный <form:radiobutton
+						path="valid" value="false" checked="checked" />Не правильный</td>
+			</tr>
+
+			<tr>
+				<td><input type="submit"
+					value="<spring:message code="label.addanswer"/>" /></td>
+			</tr>
+
+		</table>
+	</form:form>
+
+	<h3>
+		<spring:message code="label.listAnswers" />
+	</h3>
+	<c:if test="${!empty question.getAnswers()}">
+		<table class="data">
+
+			<c:forEach items="${question.getAnswers()}" var="answer">
+				<tr>
+					<td><textarea rows="5" cols="30" readonly="readonly">${answer.body}</textarea></td>
+					<td>Правильный? <br />${answer.valid}</td>
+					<td><a href="${question.id}/answer/${answer.id}/delete"><spring:message
+								code="label.delete" /></a><br />
+					<a href="${question.id}/answer/${answer.id}"><spring:message
+								code="label.edit" /></a></td>
+				</tr>
+			</c:forEach>
+
+		</table>
+	</c:if>
+
+</body>
+</html>
