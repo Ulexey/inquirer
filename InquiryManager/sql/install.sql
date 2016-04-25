@@ -1,25 +1,44 @@
-DROP TABLE IF EXISTS QUESTION;
-DROP TABLE IF EXISTS INQUIRy ;
+drop table if exists answer;
+drop table if exists question;
+drop table if exists inquiry;
 
-CREATE TABLE INQUIRY
+
+create table inquiry
   (
-     id        INT PRIMARY KEY AUTO_INCREMENT,
-     body  VARCHAR(1000)
-  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+     id        int primary key auto_increment,
+     body  varchar(1000) not null
+  ) character set utf8 collate utf8_unicode_ci;
   
-CREATE TABLE QUESTION
+create table question
   (
-    id  INT PRIMARY KEY AUTO_INCREMENT,
-    body  VARCHAR(1000),
-	multivalue BOOLEAN NOT NULL,
-	inquiry_id INT NOT NULL,
-	KEY fk_question_inquiry_idx (inquiry_id),
-  	CONSTRAINT fk_question_inquiry FOREIGN KEY (inquiry_id) REFERENCES inquiry (id)
-  ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+    id  int primary key auto_increment,
+    body  varchar(1000) not null,
+	multivalue boolean not null,
+	inquiry_id int not null,
+	key fk_question_inquiry_idx (inquiry_id),
+  	constraint fk_question_inquiry foreign key (inquiry_id) references inquiry (id)
+  ) character set utf8 collate utf8_unicode_ci;
   
-  
+create table answer
+(
+	id int primary key auto_increment,
+	body varchar(500) not null,
+	valid boolean not null,
+	question_id int not null,
+	key fk_answer_question_idx (question_id),
+	constraint fk_answer_question foreign key (question_id) references question (id)
+)	character set utf8 collate utf8_unicode_ci;
+
   insert into inquiry (body) values ("первый тест");
   insert into inquiry (body) values ("второй опрос");
-  insert into question (body,multivalue,inquiry_id) values ("первый вопрос",false,1);
-  insert into question (body,multivalue,inquiry_id) values ("второй вопрос",true,1);
+  insert into question (body,multivalue,inquiry_id) values ("первый вопрос тест1",false,1);
+  insert into question (body,multivalue,inquiry_id) values ("второй вопрос тест1",true,1);
   insert into question (body,multivalue,inquiry_id) values ("первый вопрос для втрого опроса",false,2);
+  insert into answer (body,valid,question_id) values ("ответ1 на первый вопрос теста 1",false,1);
+  insert into answer (body,valid,question_id) values ("ответ2 на первый вопрос теста 1",true,1);
+  insert into answer (body,valid,question_id) values ("ответ3 на первый вопрос теста 1",true,1);
+  insert into answer (body,valid,question_id) values ("ответ4 на первый вопрос теста 1",false,1);
+  insert into answer (body,valid,question_id) values ("ответ1 на первый вопрос теста 2",false,2);
+  insert into answer (body,valid,question_id) values ("ответ2 на первый вопрос теста 2",false,2);
+  insert into answer (body,valid,question_id) values ("ответ3 на первый вопрос теста 2",false,2);
+  insert into answer (body,valid,question_id) values ("ответ4 на первый вопрос теста 2",true,2);

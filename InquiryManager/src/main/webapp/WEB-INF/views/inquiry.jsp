@@ -14,44 +14,60 @@
 <a href="<c:url value="/logout" />">
 	<spring:message code="label.logout" />
 </a>
-  
+
+<br/>
+<a href="<c:url value="/index" />"> 
+	<spring:message code="label.back" />
+</a><br/>
+
 <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="addInquiry" commandName="inquiry">
-
+<c:url var="saveUrl" value="../addQuestion?inquiryId=${inquiry.id}" />
+<form:form method="post" action="${saveUrl}" commandName="question">
 	<table>
+		<tr>
+		   	<td><form:label path="id">
+				<spring:message code="label.id" />
+			</form:label></td>
+  		<td><input type="number" value="${inquiry.id}" disabled="true"/>
+		</tr>
 		<tr>
 			<td><form:label path="body">
 				<spring:message code="label.body" />
 			</form:label></td>
 			<td><form:input path="body" /></td>
 		</tr>
-		
+		<tr>
+			<td><form:label path="multivalue">
+				<spring:message code="label.multivalue" />
+			</form:label></td>
+			<td><form:radiobutton path="multivalue" value="true"/>TRUE <form:radiobutton path="multivalue" value="false"/>FALSE</td>
+		</tr>
 		<tr>
 			<td><input type="submit"
-				value="<spring:message code="label.addinquiry"/>" /></td>
+				value="<spring:message code="label.addquestion"/>" /></td>
 		</tr>
 	</table>
 </form:form>
 
-<h3><spring:message code="label.inquiries" /></h3>
-<c:if test="${!empty inquiryList}">
+<h3><spring:message code="label.questions" /></h3>
+<c:if test="${!empty inquiry.getQuestions()}">
 	<table class="data">
 		<tr>
 			<th><spring:message code="label.body" /></th>
+			<th><spring:message code="label.multivalue" /></th>
 			<th>&nbsp;</th>
 		</tr>
-		<c:forEach items="${inquiryList}" var="inquiry">
+		<c:forEach items="${inquiry.getQuestions()}" var="question">
 			<tr>
-				<td>${inquiry.body}</td>
-				<td><a href="delete/inquiry/${inquiry.id}"><spring:message code="label.delete" /></a></td>
-				<td><a href="fill/${inquiry.id}"><spring:message code="label.fill" /></a></td>
-				<td><a href="execute/${inquiry.id}"><spring:message code="label.execute" /></a></td>
+				<td>${question.body}</td>
+				<td>${question.multivalue}</td>
+				<td><a href="../question/delete/${question.id}?inquiryId=${inquiry.id}"><spring:message code="label.delete" /></a></td>
+				<td><a href="../inquiry/${inquiry.id}/question/${question.id}"><spring:message code="label.edit" /></a></td>
 			</tr>
 		</c:forEach>
-
 	</table>
 </c:if>
 
-</body>
-</html>
+
+</body></html>

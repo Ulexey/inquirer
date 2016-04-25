@@ -7,6 +7,7 @@
 	<session-factory>
 		<mapping class="ru.lda.inquirer.domain.Inquiry" />
 		<mapping class="ru.lda.inquirer.domain.Question" />
+		<mapping class="ru.lda.inquirer.domain.Answer" />
 
 	</session-factory>
 </hibernate-configuration>
