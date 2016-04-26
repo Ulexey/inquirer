@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Inquiry;
 import ru.lda.inquirer.domain.Question;
+import ru.lda.inquirer.domain.Survey;
 import ru.lda.inquirer.service.AnswerService;
 import ru.lda.inquirer.service.InquiryService;
 import ru.lda.inquirer.service.QuestionService;
+import ru.lda.inquirer.service.ResultService;
+import ru.lda.inquirer.service.SurveyService;
 
 @Controller
 public class InquiryController {
@@ -29,6 +32,12 @@ public class InquiryController {
 	@Autowired
 	private AnswerService answerService;
 
+	@Autowired
+	private SurveyService surveyService;
+	
+	@Autowired
+	private ResultService resultService;
+	
 	// опросы
 	@RequestMapping("/index")
 	public String listInquires(ModelMap map) {
@@ -100,14 +109,16 @@ public class InquiryController {
 	}
 
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/delete")
-	public String deleteAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId, @PathVariable("answerId") Long answerId) {
+	public String deleteAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
+			@PathVariable("answerId") Long answerId) {
 		answerService.removeAnswer(answerId);
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/question/" + questionId;
 		return redirectUrl;
 	}
 
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}")
-	public String fillAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,@PathVariable("answerId") Long answerId, ModelMap map) {
+	public String fillAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
+			@PathVariable("answerId") Long answerId, ModelMap map) {
 		map.put("answer", answerService.findAnswerById(answerId));
 		map.put("question", questionService.findQuestionById(questionId));
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
@@ -115,12 +126,41 @@ public class InquiryController {
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.POST)
-	public String postEdit(@PathVariable("inquiryId") Long inquiryId,@PathVariable("questionId") Long questionId,@PathVariable("answerId") Long answerId,@ModelAttribute("answer") Answer answer) {
+	public String postEditAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
+			@PathVariable("answerId") Long answerId, @ModelAttribute("answer") Answer answer) {
 		answer.setId(answerId);
 		answer.setQuestion(questionService.findQuestionById(questionId));
 		answerService.saveAnswer(answer);
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/question/" + questionId;
 		return redirectUrl;
 	}
+	
+	
+	//Прохождение ответов
 
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey", method = RequestMethod.GET)
+	public String getAddSurvey(@PathVariable("inquiryId") Long inquiryId, ModelMap map) {
+		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
+		map.put("survey", new Survey());
+		return "survey";
+	}
+	
+	@RequestMapping(value = "/inquiry/addSurvey",params="add", method = RequestMethod.POST)
+	public String add(@ModelAttribute("survey") Survey survey,
+			BindingResult result) {
+//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+		surveyService.addSurvey(survey);
+//		String redirectUrl = "redirect:/inquiry/" + inquiryId+"/survey1";
+		return "redirectUrl";
+	}
+
+	@RequestMapping(value = "/inquiry/addSurvey",params="show", method = RequestMethod.POST)
+	public String show( @ModelAttribute("survey") Survey survey,
+			BindingResult result) {
+//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+		surveyService.addSurvey(survey);
+//		String redirectUrl = "redirect:/inquiry/" + inquiryId+"/survey2";
+		return "redirectUrl";
+	}
+	
 }

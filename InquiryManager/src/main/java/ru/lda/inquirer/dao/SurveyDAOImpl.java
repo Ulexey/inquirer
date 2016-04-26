@@ -2,6 +2,7 @@ package ru.lda.inquirer.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import ru.lda.inquirer.domain.Survey;
 
 @Repository
-public class SurveyDAOImpl implements SurveyDAO{
+public class SurveyDAOImpl implements SurveyDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -27,15 +28,22 @@ public class SurveyDAOImpl implements SurveyDAO{
 
 	@Override
 	public void removeSurvey(Long id) {
-		Survey survey= (Survey) sessionFactory.getCurrentSession().load(Survey.class, id);
-		if(survey != null){
+		Survey survey = (Survey) sessionFactory.getCurrentSession().load(Survey.class, id);
+		if (survey != null) {
 			sessionFactory.getCurrentSession().delete(survey);
 		}
 	}
-	
+
 	@Override
 	public Survey findSurveyById(Long id) {
 		return (Survey) sessionFactory.getCurrentSession().load(Survey.class, id);
+	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Survey> findSurveysByFIO(String fio) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from Survey where fio=:fio");
+		query.setParameter("fio", fio);
+		return query.list();
 	}
 }

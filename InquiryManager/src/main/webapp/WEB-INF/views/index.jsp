@@ -19,29 +19,25 @@
 <a href="<c:url value="/index" />"> 
 	<spring:message code="label.back" />
 </a><br/>
-
 	<h2>
 		<spring:message code="label.inquiries" />
 	</h2>
-
 	<form:form method="post" action="addInquiry" commandName="inquiry">
-
 		<table>
 			<tr>
 				<td><form:label path="body">
 						<spring:message code="label.bodyinquiry" />
 					</form:label></td>
-
 			</tr>
 			<tr>
-
 				<td><form:textarea path="body" rows="5" cols="30"/></td>
 			</tr>
-
 			<tr>
 				<td><input type="submit"
 					value="<spring:message code="label.addinquiry"/>" /></td>
+					
 			</tr>
+			
 		</table>
 	</form:form>
 
@@ -57,13 +53,11 @@
 								code="label.delete" /></a><br/>
 					<a href="inquiry/${inquiry.id}"><spring:message
 								code="label.edit" /></a><br/>
-					<a href="inquiry/execute/${inquiry.id}"><spring:message
+					<a href="inquiry/${inquiry.id}/survey"><spring:message
 								code="label.execute" /></a></td>
 				</tr>
 			</c:forEach>
-
 		</table>
 	</c:if>
-
 </body>
 </html>

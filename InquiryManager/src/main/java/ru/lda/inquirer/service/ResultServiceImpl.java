@@ -34,13 +34,10 @@ public class ResultServiceImpl implements ResultService {
 		resultDAO.removeResult(id);
 	}
 
-
 	@Transactional
 	@Override
 	public Result findResultById(Long id) {
 		return resultDAO.findResultById(id);
 	}
-
-
 
 }

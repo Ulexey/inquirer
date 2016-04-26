@@ -11,6 +11,7 @@ import ru.lda.inquirer.domain.Survey;
 
 @Service
 
+@Transactional
 public class SurveyServiceImpl implements SurveyService {
 
 	@Autowired
@@ -22,23 +23,24 @@ public class SurveyServiceImpl implements SurveyService {
 
 	}
 
-	@Transactional
 	@Override
 	public List<Survey> listSurvey() {
 		return surveyDAO.listSurvey();
 	}
 
-	@Transactional
 	@Override
 	public void removeSurvey(Long id) {
 		surveyDAO.removeSurvey(id);
 	}
 
-
-	@Transactional
 	@Override
 	public Survey findSurveyById(Long id) {
 		return surveyDAO.findSurveyById(id);
+	}
+	
+	@Override
+	public List<Survey> findSurveysByFIO(String fio){
+		return surveyDAO.findSurveysByFIO(fio);
 	}
 
 }
