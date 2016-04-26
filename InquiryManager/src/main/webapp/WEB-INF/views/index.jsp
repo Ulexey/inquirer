@@ -52,7 +52,7 @@
 		<table class="data">
 			<c:forEach items="${inquiryList}" var="inquiry">
 				<tr>
-					<td>  <textarea rows="5" cols="30" readonly="readonly">${inquiry.body}</textarea>      </td>
+					<td>  <textarea rows="5" cols="30" readonly="readonly"  style="background:#808080">${inquiry.body}</textarea>      </td>
 					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
 								code="label.delete" /></a><br/>
 					<a href="inquiry/${inquiry.id}"><spring:message

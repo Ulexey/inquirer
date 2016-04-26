@@ -30,8 +30,17 @@
 	<form:form method="post" action="${saveUrl}" commandName="answer">
 
 		<table>
+					<tr>
 
-			<td><input type="number" value="${question.id}" disabled="true" />
+				<td><input size="10" type="text" value="${inquiry.id}" readonly="readonly" style="background:#808080"/>
+				<input size="50" readonly="readonly" type="text" value="${inquiry.body}" style="background:#808080" />
+				</td>
+			</tr>
+			<tr>
+
+				<td><input size="10" type="text" value="${question.id}" readonly="readonly" style="background:#808080"/>
+				<input size="50" readonly="readonly" type="text" value="${question.body}" style="background:#808080" />
+				</td>
 			</tr>
 
 			<tr>
@@ -65,7 +74,7 @@
 
 			<c:forEach items="${question.getAnswers()}" var="answer">
 				<tr>
-					<td><textarea rows="5" cols="30" readonly="readonly">${answer.body}</textarea></td>
+					<td><textarea rows="5" cols="30" readonly="readonly" style="background:#808080">${answer.body}</textarea></td>
 					<td>Правильный? <br />${answer.valid}</td>
 					<td><a href="${question.id}/answer/${answer.id}/delete"><spring:message
 								code="label.delete" /></a><br />

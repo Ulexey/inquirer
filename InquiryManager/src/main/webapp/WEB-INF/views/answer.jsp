@@ -26,8 +26,17 @@
 	<c:url var="saveUrl" value="${answer.id}/edit" />
 	<form:form modelAttribute="answer" method="POST" action="${saveUrl}">
 		<table>
+					<tr>
+
+				<td><input size="10" type="text" value="${inquiry.id}" readonly="readonly" style="background:#808080"/>
+				<input size="50" readonly="readonly" type="text" value="${inquiry.body}" style="background:#808080" />
+				</td>
+			</tr>
 			<tr>
-				<td><form:input path="id" disabled="true" /></td>
+
+				<td><input size="10" type="text" value="${question.id}" readonly="readonly" style="background:#808080"/>
+				<input size="50" readonly="readonly" type="text" value="${question.body}" style="background:#808080" />
+				</td>
 			</tr>
 
 			<tr>

@@ -30,7 +30,9 @@
 		<table>
 			<tr>
 
-				<td><input type="number" value="${inquiry.id}" disabled="true" />
+				<td><input size="10" type="text" value="${inquiry.id}" readonly="readonly" style="background:#808080"/>
+				<input size="50" readonly="readonly" type="text" value="${inquiry.body}" style="background:#808080" />
+				</td>
 			</tr>
 
 			<tr>
@@ -65,7 +67,7 @@
 		<table class="data">
 			<c:forEach items="${inquiry.getQuestions()}" var="question">
 				<tr>
-					<td><textarea rows="5" cols="30" readonly="readonly">${question.body}</textarea>
+					<td><textarea rows="5" cols="30" readonly="readonly" style="background:#808080" >${question.body}</textarea>
 					</td>
 					<td>Множественный? <br />${question.multivalue}</td>
 					<td><a

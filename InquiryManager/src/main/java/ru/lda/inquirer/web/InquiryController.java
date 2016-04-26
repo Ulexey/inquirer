@@ -107,8 +107,10 @@ public class InquiryController {
 	}
 
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}")
-	public String fillAnswer(@PathVariable("answerId") Long answerId, ModelMap map) {
+	public String fillAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,@PathVariable("answerId") Long answerId, ModelMap map) {
 		map.put("answer", answerService.findAnswerById(answerId));
+		map.put("question", questionService.findQuestionById(questionId));
+		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
 		return "answer";
 	}
 
