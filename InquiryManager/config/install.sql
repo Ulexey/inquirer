@@ -46,7 +46,7 @@ create table answer
     
 create table survey
   (
-     id        int primary key auto_increment,
+     id	int primary key auto_increment,
      fio  varchar(100) not null,
      start datetime default null,
      stop datetime default null,

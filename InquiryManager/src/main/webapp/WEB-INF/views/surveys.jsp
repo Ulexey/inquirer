@@ -20,16 +20,14 @@
 			code="label.back" />
 	</a>
 	<br />
-
 	<h2>
-		<spring:message code="label.questions" />
+		<spring:message code="label.sureys" />
 	</h2>
 
-	<c:url var="saveUrl" value="../addSurvey" />
-	<form:form method="post" action="${saveUrl}" commandName="survey">
+	<form:form method="post" action="../survey/add" commandName="survey">
 		<table>
 			<tr>
-				<td><input size="10" type="text" value="${inquiry.id}"
+				<td><input size="10" type="text" value="${inquiry.id}" 
 					readonly="readonly" style="background: #808080" /> <input size="50"
 					readonly="readonly" type="text" value="${inquiry.body}"
 					style="background: #808080" /></td>
@@ -37,7 +35,7 @@
 
 			<tr>
 				<td><form:label path="fio">
-						<spring:message code="label.fio" />
+						<spring:message code="label.survey.fio" />
 					</form:label></td>
 			</tr>
 			<tr>
@@ -45,16 +43,35 @@
 			</tr>
 			<tr>
 				<td><input type="submit"
-					value="<spring:message code="label.addSurvey"/>" name="add" /></td>
+					value="<spring:message code="label.survey.add.button"/>" name="add" /></td>
 				<td><input type="submit"
-					value="<spring:message code="label.showMySurvey"/>" name="show" /></td>
+					value="<spring:message code="label.survey.show_by_fio.button"/>" name="show" /></td>
 			</tr>
 		</table>
 	</form:form>
 
 	<h3>
-		<spring:message code="label.listSurveys" />
+		<spring:message code="label.survey.list_survey_by_fio" />
 	</h3>
+	<c:if test="${!empty surveyList}">
+		<table class="data">
+			<c:forEach items="${surveyList}" var="survey">
+				<tr>
+					<td><c:out value="${survey.id}" /></td>
+					<td><c:out value="${survey.fio}" /></td>
+					<td><c:out value="${survey.status}" /></td>
+					<td><c:out value="${survey.start}" /></td>
+					<td><c:out value="${survey.stop}" /></td>
+
+					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
+								code="label.delete" /></a><br/>
+					<a href="inquiry/${inquiry.id}"><spring:message
+								code="label.edit" /></a><br/>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 
 </body>
 </html>

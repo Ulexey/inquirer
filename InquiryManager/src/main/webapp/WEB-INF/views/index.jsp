@@ -53,7 +53,7 @@
 								code="label.delete" /></a><br/>
 					<a href="inquiry/${inquiry.id}"><spring:message
 								code="label.edit" /></a><br/>
-					<a href="inquiry/${inquiry.id}/survey"><spring:message
+					<a href="inquiry/${inquiry.id}/survey/list?fio="><spring:message
 								code="label.execute" /></a></td>
 				</tr>
 			</c:forEach>

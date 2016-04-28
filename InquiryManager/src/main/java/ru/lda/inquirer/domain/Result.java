@@ -17,14 +17,22 @@ public class Result {
 	@Column(name = "ID")
 	@GeneratedValue
 	private Long id;
+
+	@ManyToOne
+    @JoinColumn(name="SURVEY_ID")
+	private Survey survey;
 	
 	@ManyToOne
     @JoinColumn(name="ANSWER_ID")
 	private Answer answer;
 
-	@ManyToOne
-    @JoinColumn(name="SURVEY_ID")
-	private Survey survey;
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
 
 	public Long getId() {
 		return id;
@@ -34,13 +42,6 @@ public class Result {
 		this.id = id;
 	}
 
-	public Answer getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
-	}
 
 	public Survey getSurvey() {
 		return survey;

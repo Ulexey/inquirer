@@ -29,7 +29,6 @@ public class Question {
 	
 	@Column(name = "BODY")
 	private String body;
-
 	
 	@Column(name = "MULTIVALUE")
 	private Boolean multivalue;

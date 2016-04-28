@@ -4,7 +4,7 @@
 /inquiry/{inquiryId}/edit	-	редактирование опроса	-	editInquiry.jsp
 /inquiry/{inquiryId}/add	-	добавление опроса	-	
 /inquiry/{inquiryId}/delete	-	удаление опроса	-	
-/inquiry/{inquiryId}/question/{questionId}	-	просмотр вопроса и наполнение ответами	-	quiestion.jsp 
+/inquiry/{inquiryId}/question/{questionId}	-	просмотр вопроса и наполнение ответами	-	quiestion.jsp
 /inquiry/{inquiryId}/question/{questionId}/edit	-	редактирование вопроса	-	editQuestion.jsp
 /inquiry/{inquiryId}/question/{questionId}/add	-	добавление вопроса	-
 /inquiry/{inquiryId}/question/{questionId}/delete	-	удаление вопроса	-
@@ -12,8 +12,17 @@
 /inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/edit	-	редактирование ответа	-	editAnswer.jsp
 /inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/add	-	добавление ответа	-
 /inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/delete	-	удаление ответа	-	
-/inquiry/{inquiryId}/survey/list	-	список прохождений	-	surveys.jsp
-/inquiry/{inquiryId}/survey/{surveyId}	-	просмотр прохождения	-	survey.jsp
-/inquiry/{inquiryId}/survey/{surveyId}/edit	-	редактирование прохождения	-	editSurvey.jsp
-results ?
 
+/inquiry/{inquiryId}/survey/list	-	список прохождений	-	surveys.jsp
+/inquiry/{inquiryId}/survey/add	-	добавление прохождения и настройка ре	-	surveys.jsp
+
+
+/inquiry/survey/{surveyId}/edit	-	редактирование прохождения	-	editSurvey.jsp
+/inquiry/survey/{surveyId}/delete	-	удаление прохождения	-	
+/inquiry/{inquiryId}/survey/{surveyId}	-	просмотр прохождения	-	survey.jsp
+/result/list	-	список результатов	-	results.jsp
+/result/{resiltId}/delete	-	удаление результата	-	
+
+/inquiry/{inquiryId}/survey/{surveyId}/result/{resultId}	-	просмотр прохождения	-	survey.jsp
+
+нужно еще добавление survey и result

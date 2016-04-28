@@ -37,8 +37,11 @@ public class Survey {
 
 	@Column(name = "STOP")
 	private Date stop;
+	
+	@Column(name = "STATUS")
+	private String status;
 
-	@OneToMany (mappedBy="result",cascade = CascadeType.ALL)
+	@OneToMany (mappedBy="survey")
 	@OrderBy (value = "id")
 	private List<Result> results;
 
@@ -89,6 +92,16 @@ public class Survey {
 	public void setResults(List<Result> results) {
 		this.results = results;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 	
 
 }

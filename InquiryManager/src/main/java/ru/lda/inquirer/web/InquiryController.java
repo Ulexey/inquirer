@@ -1,5 +1,7 @@
 package ru.lda.inquirer.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,10 +36,10 @@ public class InquiryController {
 
 	@Autowired
 	private SurveyService surveyService;
-	
+
 	@Autowired
 	private ResultService resultService;
-	
+
 	// опросы
 	@RequestMapping("/index")
 	public String listInquires(ModelMap map) {
@@ -134,33 +136,31 @@ public class InquiryController {
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/question/" + questionId;
 		return redirectUrl;
 	}
-	
-	
-	//Прохождение ответов
 
-	@RequestMapping(value = "/inquiry/{inquiryId}/survey", method = RequestMethod.GET)
+	// Прохождение ответов (survey)
+
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/list", method = RequestMethod.GET)
 	public String getAddSurvey(@PathVariable("inquiryId") Long inquiryId, ModelMap map) {
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
 		map.put("survey", new Survey());
-		return "survey";
-	}
-	
-	@RequestMapping(value = "/inquiry/addSurvey",params="add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("survey") Survey survey,
-			BindingResult result) {
-//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
-		surveyService.addSurvey(survey);
-//		String redirectUrl = "redirect:/inquiry/" + inquiryId+"/survey1";
-		return "redirectUrl";
+		return "surveys";
 	}
 
-	@RequestMapping(value = "/inquiry/addSurvey",params="show", method = RequestMethod.POST)
-	public String show( @ModelAttribute("survey") Survey survey,
-			BindingResult result) {
-//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
+	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
+			BindingResult result, ModelMap map) {
+		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
 		surveyService.addSurvey(survey);
-//		String redirectUrl = "redirect:/inquiry/" + inquiryId+"/survey2";
-		return "redirectUrl";
+		List<Question> questions = inquiryService.findInquiryById(inquiryId).getQuestions();
+		map.put("questions", questions);
+		return "result";
 	}
 	
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "show", method = RequestMethod.POST)
+	public String postShowSurveysByFIO() {
+		return "index";
+	}
+	
+
+
 }

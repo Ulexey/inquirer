@@ -8,6 +8,8 @@
 		<mapping class="ru.lda.inquirer.domain.Inquiry" />
 		<mapping class="ru.lda.inquirer.domain.Question" />
 		<mapping class="ru.lda.inquirer.domain.Answer" />
+		<mapping class="ru.lda.inquirer.domain.Survey" />
+		<mapping class="ru.lda.inquirer.domain.Result" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -30,6 +29,10 @@ public class Inquiry {
 	@OneToMany (mappedBy="inquiry",cascade = CascadeType.ALL)
 	@OrderBy (value = "id")
 	private List<Question> questions;
+	
+	@OneToMany (mappedBy="inquiry",cascade = CascadeType.ALL)
+	@OrderBy (value = "id")
+	private List<Survey> surveys;
 
 	public List<Question> getQuestions() {
 		return questions;
@@ -54,6 +57,14 @@ public class Inquiry {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public List<Survey> getSurveys() {
+		return surveys;
+	}
+
+	public void setSurveys(List<Survey> surveys) {
+		this.surveys = surveys;
 	}
 
 	
