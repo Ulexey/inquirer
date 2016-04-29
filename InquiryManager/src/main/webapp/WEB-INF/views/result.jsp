@@ -21,45 +21,31 @@
 	</a>
 	<br />
 
-		<table class="data">
-				<tr>
-					<td>${survey.id}</td>
-					<td>${survey.fio}</td>
-					<td>${survey.start}</td>
-					<td>${survey.stop}</td>
-					<td>${survey.status}</td>
-				</tr>
-		</table>
+	<table class="data">
+		<tr>
+			<td>${survey.id}</td>
+			<td>${survey.fio}</td>
+			<td>${survey.start}</td>
+			<td>${survey.stop}</td>
+			<td>${survey.status}</td>
+		</tr>
+	</table>
 
 
+	<h1><spring:message code="label.survey.run" /></h1>
 
+<table >
 
-
-
-
-<h1>Records</h1>
-<c:url var="editImgUrl" value="/resources/img/edit.png" />
-<c:url var="deleteImgUrl" value="/resources/img/delete.png" />
-<c:url var="addUrl" value="/krams/main/record/add" />
-<table style="border: 1px solid; width: 100%; text-align:center">
- <thead style="background:#d3dce3">
-  <tr>
-   <th>Id</th>
-   <th>First Name</th>
-   <th>Last Name</th>
-   <th>Money</th>
-  </tr>
- </thead>
- <tbody style="background:#ccc">
+ <tbody >
  <c:forEach items="${questions}" var="question">
+   <tr>
+    <td style="background:#d3dce3"><c:out value="${question.body}" /></td>
+   </tr>
    
   <c:if test="${!empty question.answers}">
    <c:forEach items="${question.answers}" var="answer">
    <tr>
-    <td><c:out value="${question.id}" /></td>
-    <td><c:out value="${question.body}" /></td>
-    <td><c:out value="${answer.id}" /></td>
-    <td><c:out value="${answer.body}" /></td>
+    <td><input type="checkbox" name="answer${answer.id}" value="true"> <c:out value="${answer.body}" /></td>
    </tr>
    </c:forEach>
   </c:if>
@@ -68,19 +54,6 @@
  </c:forEach>
  </tbody>
 </table>
- 
-<c:if test="${empty questions}">
- No records found.
-</c:if>
- 
-
-
-
-
-
-
-
-
 
 
 
