@@ -10,4 +10,5 @@ public interface ResultDAO {
 	public List<Result> listResult();
 	public void removeResult(Long id);
 	public Result findResultById(Long id);
+	public List<Result> findResultsByInquiry(Long inquiryId);
 }

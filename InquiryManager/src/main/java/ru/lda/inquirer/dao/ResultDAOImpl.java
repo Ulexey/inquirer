@@ -38,4 +38,10 @@ public class ResultDAOImpl implements ResultDAO{
 		return (Result) sessionFactory.getCurrentSession().load(Result.class, id);
 
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Result> findResultsByInquiry(Long inquiryId) {
+		return sessionFactory.getCurrentSession().createQuery("from Result where inquiryId=:inquiryId ").list();
+	}
 }

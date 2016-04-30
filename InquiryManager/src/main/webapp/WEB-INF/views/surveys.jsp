@@ -32,7 +32,7 @@
 					readonly="readonly" type="text" value="${inquiry.body}"
 					style="background: #808080" /></td>
 			</tr>
-
+	
 			<tr>
 				<td><form:label path="fio">
 						<spring:message code="label.survey.fio" />

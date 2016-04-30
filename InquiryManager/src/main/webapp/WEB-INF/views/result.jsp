@@ -31,7 +31,6 @@
 		</tr>
 	</table>
 
-
 	<h1><spring:message code="label.survey.run" /></h1>
 
 <table >

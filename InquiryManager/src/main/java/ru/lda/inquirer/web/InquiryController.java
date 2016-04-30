@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Inquiry;
 import ru.lda.inquirer.domain.Question;
+import ru.lda.inquirer.domain.Result;
 import ru.lda.inquirer.domain.Survey;
 import ru.lda.inquirer.service.AnswerService;
 import ru.lda.inquirer.service.InquiryService;
@@ -149,18 +150,26 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
 	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
 			BindingResult result, ModelMap map) {
-		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+		Inquiry inqury = inquiryService.findInquiryById(inquiryId);
+		survey.setInquiry(inqury);
 		surveyService.addSurvey(survey);
-		List<Question> questions = inquiryService.findInquiryById(inquiryId).getQuestions();
+
+		List<Question> questions = inqury.getQuestions();
+		for (Question question : questions) {
+			for (Answer answer : question.getAnswers()) {
+				Result newResult = new Result();
+				newResult.setSurvey(survey);
+				newResult.setAnswer(answer);
+				resultService.addResult(newResult);
+			}
+		}
 		map.put("questions", questions);
 		return "result";
 	}
-	
+
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "show", method = RequestMethod.POST)
 	public String postShowSurveysByFIO() {
 		return "index";
 	}
-	
-
 
 }

@@ -17,6 +17,9 @@ public class Result {
 	@Column(name = "ID")
 	@GeneratedValue
 	private Long id;
+	
+	@Column(name="CHECKED")
+	private boolean checked;
 
 	@ManyToOne
     @JoinColumn(name="SURVEY_ID")
@@ -25,6 +28,16 @@ public class Result {
 	@ManyToOne
     @JoinColumn(name="ANSWER_ID")
 	private Answer answer;
+
+	
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	public Answer getAnswer() {
 		return answer;

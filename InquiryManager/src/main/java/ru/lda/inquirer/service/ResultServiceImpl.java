@@ -40,4 +40,10 @@ public class ResultServiceImpl implements ResultService {
 		return resultDAO.findResultById(id);
 	}
 
+
+	@Override
+	public List<Result> findResultsByInquiry(Long inquiryId) {
+		return resultDAO.findResultsByInquiry(inquiryId);
+	}
+
 }

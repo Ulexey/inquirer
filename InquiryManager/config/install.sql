@@ -54,7 +54,6 @@ create table survey
      inquiry_id int not null,
      key fk_survey_inquiry_idx (inquiry_id),
   	constraint fk_survey_inquiry foreign key (inquiry_id) references inquiry (id)
-
   ) character set utf8 collate utf8_unicode_ci;  
 
 create table result
@@ -62,6 +61,7 @@ create table result
      id        int primary key auto_increment,
      answer_id int not null,
      survey_id int not null,
+     checked boolean,
      key fk_result_survey_idx (survey_id),
           key fk_result_answer_idx (answer_id),
   		constraint fk_result_survey foreign key (survey_id) references survey (id),
