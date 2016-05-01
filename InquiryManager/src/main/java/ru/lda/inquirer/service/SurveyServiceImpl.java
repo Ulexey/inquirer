@@ -2,11 +2,16 @@ package ru.lda.inquirer.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.lda.inquirer.dao.ResultDAOImpl;
 import ru.lda.inquirer.dao.SurveyDAO;
+import ru.lda.inquirer.domain.Answer;
+import ru.lda.inquirer.domain.Result;
 import ru.lda.inquirer.domain.Survey;
 
 @Service
@@ -16,11 +21,18 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Autowired
 	private SurveyDAO surveyDAO;
+	
+	@Resource
+	ResultDAOImpl resultRepository; 
+
 
 	@Override
 	public void addSurvey(Survey survey) {
-		surveyDAO.addSurvey(survey);
 
+		surveyDAO.addSurvey(survey);
+		for (Result result : survey.getResults()) {
+			resultRepository.addResult(result);
+		}
 	}
 
 	@Override
@@ -43,5 +55,12 @@ public class SurveyServiceImpl implements SurveyService {
 		return surveyDAO.findSurveysByFIO(fio);
 	}
 
+	@Transactional
+	@Override
+	public void saveSurvey(Survey survey) {
+		
+		surveyDAO.saveSurvey(survey);
+	}
+	
 	
 }

@@ -10,4 +10,5 @@ public interface SurveyDAO {
 	public void removeSurvey(Long id);
 	public Survey findSurveyById(Long id);
 	public List<Survey> findSurveysByFIO(String fio);
+	void saveSurvey(Survey survey);
 }

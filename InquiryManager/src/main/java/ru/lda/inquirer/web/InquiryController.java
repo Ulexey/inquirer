@@ -1,9 +1,11 @@
 package ru.lda.inquirer.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,8 +57,10 @@ public class InquiryController {
 	}
 
 	@RequestMapping(value = "/addInquiry", method = RequestMethod.POST)
-	public String addInquiry(@ModelAttribute("inquiry") Inquiry inquiry, BindingResult result) {
+	public String addInquiry(@ModelAttribute("inquiry") Inquiry inquiry) {
+		System.out.println("!!!!!! "+inquiry.getId());
 		inquiryService.addInquiry(inquiry);
+		System.out.println("!!!!!@#! "+inquiry.getId());
 		return "redirect:/index";
 	}
 
@@ -138,38 +142,77 @@ public class InquiryController {
 		return redirectUrl;
 	}
 
-	// Прохождение ответов (survey)
+	// Прохождения
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/list", method = RequestMethod.GET)
-	public String getAddSurvey(@PathVariable("inquiryId") Long inquiryId, ModelMap map) {
+	public String getAddSurvey(@RequestParam("fio") String fio, @PathVariable("inquiryId") Long inquiryId,
+			ModelMap map) {
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
-		map.put("survey", new Survey());
+		Survey survey = new Survey();
+		map.put("survey", survey);
+
+		List<Survey> surveyList = surveyService.findSurveysByFIO(fio);
+		map.put("surveyList", surveyList);
+
 		return "surveys";
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
 	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
-			BindingResult result, ModelMap map) {
+			BindingResult result, Model model) {
 		Inquiry inqury = inquiryService.findInquiryById(inquiryId);
 		survey.setInquiry(inqury);
-		surveyService.addSurvey(survey);
 
 		List<Question> questions = inqury.getQuestions();
+		List<Result> results = new ArrayList<Result>();
 		for (Question question : questions) {
 			for (Answer answer : question.getAnswers()) {
 				Result newResult = new Result();
 				newResult.setSurvey(survey);
 				newResult.setAnswer(answer);
-				resultService.addResult(newResult);
+				results.add(newResult);
 			}
 		}
-		map.put("questions", questions);
+		survey.setResults(results);
+		surveyService.addSurvey(survey);
+		model.addAttribute("survey", survey);
+
+		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/survey/list?fio="
+				+ survey.getFio().trim().replace(" ", "%20");
+		return redirectUrl;
+
+	}
+
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/{surveyId}", method = RequestMethod.GET)
+	public String startSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
+			ModelMap model) {
+		Survey survey = surveyService.findSurveyById(surveyId);
+		System.out.println("######################"+survey.getFio());
+		model.put("survey",survey);
 		return "result";
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "show", method = RequestMethod.POST)
-	public String postShowSurveysByFIO() {
-		return "index";
+	public String showAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
+			BindingResult result, ModelMap map) {
+		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/survey/list?fio="
+				+ survey.getFio().trim().replace(" ", "%20");
+		return redirectUrl;
+	}
+
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/saveSurvey/{surveyId}", method = RequestMethod.POST)
+	public String shoswAddSurvey(@PathVariable("inquiryId") Long inquiryId,@PathVariable("surveyId") Long surveyId,@ModelAttribute("survey") Survey survey) {
+		System.out.println("$$$$$$$$" + survey.getId());
+
+		
+		survey.setId(surveyId);
+		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+		surveyService.saveSurvey(survey);
+		System.out.println("$$$$$$$$" + survey.getId());
+		
+		String redirectUrl = "redirect:/index";
+
+		return redirectUrl;
 	}
 
 }

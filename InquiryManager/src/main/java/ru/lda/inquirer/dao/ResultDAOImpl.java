@@ -2,10 +2,12 @@ package ru.lda.inquirer.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Result;
 
 @Repository
@@ -13,6 +15,8 @@ public class ResultDAOImpl implements ResultDAO{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	
 
 	@Override
 	public void addResult(Result result) {
@@ -44,4 +48,6 @@ public class ResultDAOImpl implements ResultDAO{
 	public List<Result> findResultsByInquiry(Long inquiryId) {
 		return sessionFactory.getCurrentSession().createQuery("from Result where inquiryId=:inquiryId ").list();
 	}
+	
+	
 }

@@ -33,27 +33,35 @@
 
 	<h1><spring:message code="label.survey.run" /></h1>
 
-<table >
 
- <tbody >
- <c:forEach items="${questions}" var="question">
-   <tr>
-    <td style="background:#d3dce3"><c:out value="${question.body}" /></td>
-   </tr>
-   
-  <c:if test="${!empty question.answers}">
-   <c:forEach items="${question.answers}" var="answer">
-   <tr>
-    <td><input type="checkbox" name="answer${answer.id}" value="true"> <c:out value="${answer.body}" /></td>
-   </tr>
-   </c:forEach>
-  </c:if>
-   
-   
- </c:forEach>
- </tbody>
-</table>
+<h2>Spring MVC Multiple Row Form Submit example</h2>
 
+<form:form method="post" action="saveSurvey/${survey.id}" commandName="survey" >
+    <table>
+	<tbody>
+    <tr>
+        <td><form:input path="fio"></form:input></td>
+        <td><form:input path="status"></form:input></td>
+        <td><form:input path="start"></form:input></td>
+        <td><form:input path="stop"></form:input></td>
+    </tr>
+
+
+    <c:forEach items="${survey.results}" var="result" varStatus="status">
+        <tr>
+            <td align="center">${status.count}</td>
+            <td><form:input path="results[${status.index}].checked" /></td>
+            <td>${result.id}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>  
+<br/>
+<input type="submit" value="Save" />
+     
+</form:form>
 
 
 </body>

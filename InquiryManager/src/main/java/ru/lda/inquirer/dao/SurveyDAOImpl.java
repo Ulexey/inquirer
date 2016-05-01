@@ -3,10 +3,10 @@ package ru.lda.inquirer.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import ru.lda.inquirer.domain.Survey;
 
 @Repository
@@ -46,4 +46,15 @@ public class SurveyDAOImpl implements SurveyDAO {
 		query.setParameter("fio", fio);
 		return query.list();
 	}
+	
+	@Override
+	 public void saveSurvey(Survey survey) {
+		  Session session = sessionFactory.getCurrentSession();
+		  Survey existingSurvey = (Survey) session.get(Survey.class, survey.getId());
+		  existingSurvey.setFio(survey.getFio());
+		  existingSurvey.setStatus(survey.getStatus());
+		  existingSurvey.setStart(survey.getStart());
+		  existingSurvey.setStop(survey.getStop());
+		  session.save(existingSurvey);
+		 }
 }

@@ -9,4 +9,5 @@ import ru.lda.inquirer.domain.Survey;
 public interface SurveyService extends SurveyDAO{
 	Survey findSurveyById(Long id);
 	List<Survey> findSurveysByFIO(String fio);
+	void saveSurvey(Survey survey);
 }

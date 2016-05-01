@@ -65,7 +65,7 @@
 
 					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
 								code="label.delete" /></a><br/>
-					<a href="inquiry/${inquiry.id}"><spring:message
+					<a href="add/${survey.id}"><spring:message
 								code="label.edit" /></a><br/>
 					</td>
 				</tr>

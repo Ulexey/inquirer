@@ -5,10 +5,11 @@
 
 <hibernate-configuration>
 	<session-factory>
+			<mapping class="ru.lda.inquirer.domain.Survey" />
 		<mapping class="ru.lda.inquirer.domain.Result" />
 		<mapping class="ru.lda.inquirer.domain.Inquiry" />
 		<mapping class="ru.lda.inquirer.domain.Question" />
 		<mapping class="ru.lda.inquirer.domain.Answer" />
-		<mapping class="ru.lda.inquirer.domain.Survey" />
+
 	</session-factory>
 </hibernate-configuration>
