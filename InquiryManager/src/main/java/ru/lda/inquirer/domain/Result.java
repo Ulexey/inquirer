@@ -64,4 +64,11 @@ public class Result {
 		this.survey = survey;
 	}
 
+	@Override
+	public String toString() {
+		return "Result [id=" + id + ", checked=" + checked + ", survey=" + survey + ", answer=" + answer + "]";
+	}
+	
+	
+
 }

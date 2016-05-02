@@ -55,11 +55,14 @@ public class SurveyServiceImpl implements SurveyService {
 		return surveyDAO.findSurveysByFIO(fio);
 	}
 
-	@Transactional
 	@Override
 	public void saveSurvey(Survey survey) {
-		
 		surveyDAO.saveSurvey(survey);
+	}
+
+	@Override
+	public List<Result> findResultsBySurvey(Long id) {
+		return surveyDAO.findResultsBySurvey(id);
 	}
 	
 	

@@ -3,6 +3,8 @@ package ru.lda.inquirer.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Inquiry;
 import ru.lda.inquirer.domain.Question;
 import ru.lda.inquirer.domain.Result;
+import ru.lda.inquirer.domain.ResultForm;
 import ru.lda.inquirer.domain.Survey;
 import ru.lda.inquirer.service.AnswerService;
 import ru.lda.inquirer.service.InquiryService;
@@ -40,7 +43,7 @@ public class InquiryController {
 	@Autowired
 	private SurveyService surveyService;
 
-	@Autowired
+	@Resource
 	private ResultService resultService;
 
 	// опросы
@@ -154,11 +157,13 @@ public class InquiryController {
 		List<Survey> surveyList = surveyService.findSurveysByFIO(fio);
 		map.put("surveyList", surveyList);
 
+
+		
 		return "surveys";
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
-	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
+	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,@ModelAttribute("resultForm") ResultForm resultForm,
 			BindingResult result, Model model) {
 		Inquiry inqury = inquiryService.findInquiryById(inquiryId);
 		survey.setInquiry(inqury);
@@ -177,17 +182,18 @@ public class InquiryController {
 		surveyService.addSurvey(survey);
 		model.addAttribute("survey", survey);
 
-		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/survey/list?fio="
-				+ survey.getFio().trim().replace(" ", "%20");
-		return redirectUrl;
+		
+
+//		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/survey/list?fio="
+//				+ survey.getFio().trim().replace(" ", "%20");
+		return "result2";
 
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/{surveyId}", method = RequestMethod.GET)
-	public String startSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
+	public String addSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
 			ModelMap model) {
 		Survey survey = surveyService.findSurveyById(surveyId);
-		System.out.println("######################"+survey.getFio());
 		model.put("survey",survey);
 		return "result";
 	}
@@ -199,20 +205,51 @@ public class InquiryController {
 				+ survey.getFio().trim().replace(" ", "%20");
 		return redirectUrl;
 	}
-
-	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/saveSurvey/{surveyId}", method = RequestMethod.POST)
-	public String shoswAddSurvey(@PathVariable("inquiryId") Long inquiryId,@PathVariable("surveyId") Long surveyId,@ModelAttribute("survey") Survey survey) {
-		System.out.println("$$$$$$$$" + survey.getId());
-
+	
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/start", method = RequestMethod.GET)
+	public String startSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
+			ModelMap model) {
+		Survey survey = surveyService.findSurveyById(surveyId);
+		ResultForm resultForm = new ResultForm();
+		resultForm.setResults(survey.getResults());
+		model.addAttribute("resultForm",resultForm);
+		return "editresults";
 		
-		survey.setId(surveyId);
-		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
-		surveyService.saveSurvey(survey);
-		System.out.println("$$$$$$$$" + survey.getId());
-		
-		String redirectUrl = "redirect:/index";
-
-		return redirectUrl;
 	}
+	
+	
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/savve", method = RequestMethod.POST)
+	public String savveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
+			ModelMap model) {
+		System.out.println(resultForm.getResults().toString());
+		System.out.println(resultForm.getResults().get(0).getId());
+		
+		for (Result result : resultForm.getResults()) {
+			System.out.println(result.getId());
+			System.out.println(result.toString());
+			
+			resultService.saveResult(result);
+		}
+		return "editresults";
+	}
+
+//	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/saveSurvey/{surveyId}", method = RequestMethod.POST)
+//	public String shoswAddSurvey(@PathVariable("inquiryId") Long inquiryId,@PathVariable("surveyId") Long surveyId,@ModelAttribute("survey") Survey survey) {
+//		System.out.println("$$$$$$$$" + survey.getId());
+//
+//		
+//		survey.setId(surveyId);
+//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
+//		surveyService.saveSurvey(survey);
+//		for (Result result : resultService.findResultsBySurvey(survey.getId())) {
+//
+//			resultService.saveResult(result);
+//		}
+//		System.out.println("$$$$$$$$" + survey.getId());
+//		
+//		String redirectUrl = "redirect:/index";
+//
+//		return redirectUrl;
+//	}
 
 }

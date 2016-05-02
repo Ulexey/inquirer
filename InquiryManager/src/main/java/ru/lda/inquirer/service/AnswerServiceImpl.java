@@ -10,7 +10,7 @@ import ru.lda.inquirer.dao.AnswerDAO;
 import ru.lda.inquirer.domain.Answer;
 
 @Service
-
+@Transactional
 public class AnswerServiceImpl implements AnswerService {
 
 	@Autowired

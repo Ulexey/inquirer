@@ -2,11 +2,15 @@ package ru.lda.inquirer.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import ru.lda.inquirer.domain.Result;
 import ru.lda.inquirer.domain.Survey;
 
 @Repository
@@ -14,7 +18,16 @@ public class SurveyDAOImpl implements SurveyDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Resource
+	ResultDAOImpl resultRepository; 
 
+	@Resource
+	InquiryDAOImpl inquiryRepository;
+	
+	
+	
+	
 	@Override
 	public void addSurvey(Survey survey) {
 		sessionFactory.getCurrentSession().save(survey);
@@ -55,6 +68,17 @@ public class SurveyDAOImpl implements SurveyDAO {
 		  existingSurvey.setStatus(survey.getStatus());
 		  existingSurvey.setStart(survey.getStart());
 		  existingSurvey.setStop(survey.getStop());
+		  existingSurvey.setInquiry(survey.getInquiry());
 		  session.save(existingSurvey);
 		 }
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Result> findResultsBySurvey(Long id) {
+		Query query =  sessionFactory.getCurrentSession().createQuery("from Survey where id=:id");
+		query.setParameter("id", id);
+		return query.list();
+	}
+
+
 }

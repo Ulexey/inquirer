@@ -10,7 +10,7 @@ import ru.lda.inquirer.dao.ResultDAO;
 import ru.lda.inquirer.domain.Result;
 
 @Service
-
+@Transactional
 public class ResultServiceImpl implements ResultService {
 
 	@Autowired
@@ -44,6 +44,16 @@ public class ResultServiceImpl implements ResultService {
 	@Override
 	public List<Result> findResultsByInquiry(Long inquiryId) {
 		return resultDAO.findResultsByInquiry(inquiryId);
+	}
+
+	@Override
+	public void saveResult(Result result) {
+		resultDAO.saveResult(result);
+	}
+
+	@Override
+	public List<Result> findResultsBySurvey(Long id) {
+		return resultDAO.findResultsBySurvey(id);
 	}
 
 }

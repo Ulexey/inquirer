@@ -8,4 +8,5 @@ import ru.lda.inquirer.domain.Result;
 public interface ResultService extends ResultDAO{
 	Result findResultById(Long id);
 	List<Result> findResultsByInquiry(Long inquiryId);
+	void saveResult(Result result);
 }
