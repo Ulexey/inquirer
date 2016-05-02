@@ -29,7 +29,9 @@ public class Result {
     @JoinColumn(name="ANSWER_ID")
 	private Answer answer;
 
-	
+	@ManyToOne
+    @JoinColumn(name="QUESTION_ID")
+	private Question question;
 	
 	public boolean isChecked() {
 		return checked;
@@ -64,11 +66,17 @@ public class Result {
 		this.survey = survey;
 	}
 
-	@Override
-	public String toString() {
-		return "Result [id=" + id + ", checked=" + checked + ", survey=" + survey + ", answer=" + answer + "]";
-	}
 	
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+
 	
 
 }

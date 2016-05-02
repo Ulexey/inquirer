@@ -46,6 +46,7 @@ public class ResultServiceImpl implements ResultService {
 		return resultDAO.findResultsByInquiry(inquiryId);
 	}
 
+	
 	@Override
 	public void saveResult(Result result) {
 		resultDAO.saveResult(result);

@@ -46,9 +46,12 @@ public class ResultDAOImpl implements ResultDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Result> findResultsByInquiry(Long inquiryId) {
-		return sessionFactory.getCurrentSession().createQuery("from Result where inquiryId=:inquiryId").list();
+	public List<Result> findResultsByInquiry(Long id) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from Result where inquiry=:id");
+		query.setParameter("id", id);
+		return query.list();
 	}
+
 
 	@Override
 	public void saveResult(Result result) {

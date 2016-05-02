@@ -1,6 +1,7 @@
 package ru.lda.inquirer.web;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -153,12 +154,8 @@ public class InquiryController {
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
 		Survey survey = new Survey();
 		map.put("survey", survey);
-
 		List<Survey> surveyList = surveyService.findSurveysByFIO(fio);
 		map.put("surveyList", surveyList);
-
-
-		
 		return "surveys";
 	}
 
@@ -175,6 +172,7 @@ public class InquiryController {
 				Result newResult = new Result();
 				newResult.setSurvey(survey);
 				newResult.setAnswer(answer);
+				newResult.setQuestion(question);
 				results.add(newResult);
 			}
 		}
@@ -182,10 +180,6 @@ public class InquiryController {
 		surveyService.addSurvey(survey);
 		model.addAttribute("survey", survey);
 
-		
-
-//		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/survey/list?fio="
-//				+ survey.getFio().trim().replace(" ", "%20");
 		return "result2";
 
 	}
@@ -209,10 +203,20 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/start", method = RequestMethod.GET)
 	public String startSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
 			ModelMap model) {
-		Survey survey = surveyService.findSurveyById(surveyId);
+		Inquiry inquiry = inquiryService.findInquiryById(inquiryId);
 		ResultForm resultForm = new ResultForm();
-		resultForm.setResults(survey.getResults());
+		
+		List<Question> temp = inquiry.getQuestions();
+		for (Question question : temp) {
+			for (Iterator<Result> iterator = question.getResults().iterator(); iterator.hasNext();) {
+				Result result = (Result) iterator.next();
+				if (result.getSurvey().getId().longValue()!=surveyId) iterator.remove();
+			}
+		}
+		
+		resultForm.setQuestions(temp);
 		model.addAttribute("resultForm",resultForm);
+		
 		return "editresults";
 		
 	}
@@ -221,14 +225,11 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/savve", method = RequestMethod.POST)
 	public String savveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
 			ModelMap model) {
-		System.out.println(resultForm.getResults().toString());
-		System.out.println(resultForm.getResults().get(0).getId());
 		
-		for (Result result : resultForm.getResults()) {
-			System.out.println(result.getId());
-			System.out.println(result.toString());
-			
-			resultService.saveResult(result);
+		for (Question question : resultForm.getQuestions()) {
+			for (Result result : question.getResults()) {
+				resultService.saveResult(result);
+			}
 		}
 		return "editresults";
 	}

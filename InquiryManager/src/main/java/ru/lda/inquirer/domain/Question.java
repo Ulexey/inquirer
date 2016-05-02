@@ -26,7 +26,8 @@ public class Question {
 	@ManyToOne
     @JoinColumn(name="INQUIRY_ID")
 	private Inquiry inquiry;
-	
+
+
 	@Column(name = "BODY")
 	private String body;
 	
@@ -36,6 +37,11 @@ public class Question {
 	@OneToMany (mappedBy="question",cascade = CascadeType.ALL)
 	@OrderBy (value = "id")
 	private List<Answer> answers;
+	
+	
+	@OneToMany (mappedBy="question",cascade = CascadeType.ALL)
+	@OrderBy (value = "id")
+	private List<Result> results;
 	
 	public Long getId() {
 		return id;
@@ -76,6 +82,14 @@ public class Question {
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
 	}
-	
 
+	public List<Result> getResults() {
+		return results;
+	}
+
+	public void setResults(List<Result> results) {
+		this.results = results;
+	}
+
+	
 }
