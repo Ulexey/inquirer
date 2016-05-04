@@ -20,24 +20,22 @@
 			code="label.back" />
 	</a>
 	<br />
-
 	<h1><spring:message code="label.survey.run" /></h1>
-
-
-<h2>Spring MVC Multiple Row Form Submit example</h2>
-
-<form:form method="post" action="savve" commandName="resultForm" >
+<form:form method="post" action="save" commandName="resultForm" >
     <table>
 	<tbody>
 
     <c:forEach items="${resultForm.questions}" var="question" varStatus="q">
-            <tr><td>${question.body}</td></tr>
+    <br/>
+            <tr><td>
+            <textarea rows="5" cols="30"  readonly="readonly"> ${question.body}</textarea>
+            
+            </td></tr>
     <c:forEach items="${question.results}" var="result" varStatus="r">
-            <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].id" /></td></tr>
+            <tr><td><form:checkbox path="questions[${q.index}].results[${r.index}].checked" />${result.answer.body}</td></tr>
+                        <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].id" /></td></tr>
             <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].survey.id" /></td></tr>
             <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].answer.id" /></td></tr>
-            <tr><td><form:input path="questions[${q.index}].results[${r.index}].checked" /></td>
-            <td>${result.answer.body}</td></tr>
     </c:forEach>
     </c:forEach>
     </tbody>

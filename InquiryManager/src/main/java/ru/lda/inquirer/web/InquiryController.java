@@ -214,6 +214,7 @@ public class InquiryController {
 			}
 		}
 		
+		//TODO проставить время начала прохождения  и статус проставить start
 		resultForm.setQuestions(temp);
 		model.addAttribute("resultForm",resultForm);
 		
@@ -221,9 +222,8 @@ public class InquiryController {
 		
 	}
 	
-	
-	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/savve", method = RequestMethod.POST)
-	public String savveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/save", method = RequestMethod.POST)
+	public String saveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
 			ModelMap model) {
 		
 		for (Question question : resultForm.getQuestions()) {
@@ -231,26 +231,10 @@ public class InquiryController {
 				resultService.saveResult(result);
 			}
 		}
-		return "editresults";
+		Survey survey = surveyService.findSurveyById(surveyId);
+		model.put("survey",survey);
+		//TODO проставить время окончания прохождения и статус обновить до finish
+		return "result/finish";
 	}
-
-//	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/saveSurvey/{surveyId}", method = RequestMethod.POST)
-//	public String shoswAddSurvey(@PathVariable("inquiryId") Long inquiryId,@PathVariable("surveyId") Long surveyId,@ModelAttribute("survey") Survey survey) {
-//		System.out.println("$$$$$$$$" + survey.getId());
-//
-//		
-//		survey.setId(surveyId);
-//		survey.setInquiry(inquiryService.findInquiryById(inquiryId));
-//		surveyService.saveSurvey(survey);
-//		for (Result result : resultService.findResultsBySurvey(survey.getId())) {
-//
-//			resultService.saveResult(result);
-//		}
-//		System.out.println("$$$$$$$$" + survey.getId());
-//		
-//		String redirectUrl = "redirect:/index";
-//
-//		return redirectUrl;
-//	}
 
 }
