@@ -11,14 +11,21 @@
 </head>
 <body>
 
-<a href="<c:url value="/logout" />">
-	<spring:message code="label.logout" />
-</a>
+	<a href="<c:url value="/logout" />"> <spring:message
+			code="label.logout" />
+	</a>
 
-<br/>
-<a href="<c:url value="/index" />"> 
-	<spring:message code="label.back" />
-</a><br/>
+	<br />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.back" />
+	</a>
+	<br />
+
+	<br />
+	<a href="<c:url value="/survey/list" />"> <spring:message
+			code="label.listSurveys" />
+	</a>
+	<br />
 	<h2>
 		<spring:message code="label.inquiries" />
 	</h2>
@@ -30,14 +37,13 @@
 					</form:label></td>
 			</tr>
 			<tr>
-				<td><form:textarea path="body" rows="5" cols="30"/></td>
+				<td><form:textarea path="body" rows="5" cols="30" /></td>
 			</tr>
 			<tr>
 				<td><input type="submit"
 					value="<spring:message code="label.addinquiry"/>" /></td>
-					
 			</tr>
-			
+
 		</table>
 	</form:form>
 
@@ -48,12 +54,12 @@
 		<table class="data">
 			<c:forEach items="${inquiryList}" var="inquiry">
 				<tr>
-					<td>  <textarea rows="5" cols="30" readonly="readonly"  style="background:#808080">${inquiry.body}</textarea>      </td>
+					<td><textarea rows="5" cols="30" readonly="readonly"
+							style="background: #808080">${inquiry.body}</textarea></td>
 					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
-								code="label.delete" /></a><br/>
-					<a href="inquiry/${inquiry.id}"><spring:message
-								code="label.edit" /></a><br/>
-					<a href="inquiry/${inquiry.id}/survey/list?fio="><spring:message
+								code="label.delete" /></a><br /> <a href="inquiry/${inquiry.id}"><spring:message
+								code="label.edit" /></a><br /> <a
+						href="inquiry/${inquiry.id}/survey/list?fio="><spring:message
 								code="label.execute" /></a></td>
 				</tr>
 			</c:forEach>

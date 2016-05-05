@@ -225,7 +225,6 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/save", method = RequestMethod.POST)
 	public String saveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
 			ModelMap model) {
-		
 		for (Question question : resultForm.getQuestions()) {
 			for (Result result : question.getResults()) {
 				resultService.saveResult(result);
@@ -235,6 +234,21 @@ public class InquiryController {
 		model.put("survey",survey);
 		//TODO проставить время окончания прохождения и статус обновить до finish
 		return "result/finish";
+	}
+	
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/show", method = RequestMethod.GET)
+	public String showSurvey(@PathVariable("surveyId") Long surveyId,
+			ModelMap map) {
+		Survey survey = surveyService.findSurveyById(surveyId);
+		map.put("results",survey.getResults());
+		return "result/show";
+	}
+	
+	@RequestMapping(value = "/survey/list")
+	public String listSurveys(ModelMap map){
+		List<Survey> surveys = surveyService.listSurvey();
+		map.put("surveys", surveys);
+		return "survey/list";
 	}
 
 }

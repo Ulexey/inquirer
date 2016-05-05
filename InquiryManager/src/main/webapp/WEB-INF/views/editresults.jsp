@@ -39,12 +39,10 @@
     </c:forEach>
     </c:forEach>
     </tbody>
-</table>  
+</table>
 <br/>
 <input type="submit" value="Save" />
      
 </form:form>
-
-
 </body>
 </html>
