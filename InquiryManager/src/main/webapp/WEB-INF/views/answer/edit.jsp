@@ -9,26 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="label.title" /></title>
 </head>
-<body>
 
+
+<body>
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
 	<a href="<c:url value=".." />"> <spring:message code="label.back" />
 	</a>
 	<br />
-
 	<h2>
-		<spring:message code="label.answers" />
+		<spring:message code="label.answer" />
 	</h2>
 
-
-	<c:url var="saveUrl"
-		value="../../../addAnswer?questionId=${question.id}&inquiryId=${inquiry.id}" />
-	<form:form method="post" action="${saveUrl}" commandName="answer">
-
+	<c:url var="saveUrl" value="edit" />
+	<form:form modelAttribute="answer" method="POST" action="${saveUrl}">
 		<table>
 					<tr>
 
@@ -44,8 +40,8 @@
 			</tr>
 
 			<tr>
-				<td><form:label path="body">
-						<spring:message code="label.bodyAnswer" />
+				<td><form:label path="id">
+						<spring:message code="label.body" />
 					</form:label><br />
 				<form:textarea path="body" rows="5" cols="30" /></td>
 			</tr>
@@ -53,38 +49,16 @@
 			<tr>
 				<td><form:label path="valid">
 						<spring:message code="label.valid" />
-					</form:label><br />
-				<form:radiobutton path="valid" value="true" />Правильный <form:radiobutton
-						path="valid" value="false" checked="checked" />Не правильный</td>
+					</form:label><br />Правильный ответ?
+				<form:checkbox path="valid" /></td>
 			</tr>
-
-			<tr>
-				<td><input type="submit"
-					value="<spring:message code="label.addanswer"/>" /></td>
-			</tr>
-
 		</table>
+
+		<input type="submit" value="<spring:message code="label.saveAnswer"/>" />
 	</form:form>
 
-	<h3>
-		<spring:message code="label.listAnswers" />
-	</h3>
-	<c:if test="${!empty question.getAnswers()}">
-		<table class="data">
-
-			<c:forEach items="${question.getAnswers()}" var="answer">
-				<tr>
-					<td><textarea rows="5" cols="30" readonly="readonly" style="background:#808080">${answer.body}</textarea></td>
-					<td>Правильный? <br />${answer.valid}</td>
-					<td><a href="${question.id}/answer/${answer.id}/delete"><spring:message
-								code="label.delete" /></a><br />
-					<a href="${question.id}/answer/${answer.id}"><spring:message
-								code="label.edit" /></a></td>
-				</tr>
-			</c:forEach>
-
-		</table>
-	</c:if>
-
 </body>
+
+
+
 </html>

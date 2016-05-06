@@ -21,7 +21,9 @@
 	</a>
 	<br />
 
-	<table class="data">
+	Опрос пройден
+
+	<table>
 		<tr>
 			<td>${survey.id}</td>
 			<td>${survey.fio}</td>
@@ -33,8 +35,8 @@
 
 
 
-	<a href="<c:url value="${survey.id}/start" />"> <spring:message
-			code="label.survey.run" />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.begin" />
 </a>
 
 

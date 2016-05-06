@@ -30,7 +30,6 @@
 		<spring:message code="label.survey.list_survey_by_fio" />
 	</h3>
 
-	<c:if test="${!empty surveys}">
 		<table>
 			<c:forEach items="${surveys}" var="survey">
 				<tr>
@@ -48,7 +47,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if>
 
 </body>
 </html>

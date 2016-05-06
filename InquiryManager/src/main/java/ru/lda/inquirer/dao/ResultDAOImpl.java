@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import ru.lda.inquirer.domain.Result;
 
@@ -33,9 +32,7 @@ public class ResultDAOImpl implements ResultDAO{
 	@Override
 	public void removeResult(Long id) {
 		Result result= (Result) sessionFactory.getCurrentSession().load(Result.class, id);
-		if(result != null){
 			sessionFactory.getCurrentSession().delete(result);
-		}
 	}
 	
 	@Override
@@ -55,14 +52,11 @@ public class ResultDAOImpl implements ResultDAO{
 
 	@Override
 	public void saveResult(Result result) {
-		System.out.println("333333333333333333333333333333333333333");
 		  Session session = sessionFactory.getCurrentSession();
 		  Result existingResult = (Result) session.get(Result.class, result.getId());
 		  existingResult.setAnswer(result.getAnswer());
 		  existingResult.setSurvey(result.getSurvey());
-		  
 		  existingResult.setChecked(result.isChecked());
-		  
 		  session.save(existingResult);
 	}
 	

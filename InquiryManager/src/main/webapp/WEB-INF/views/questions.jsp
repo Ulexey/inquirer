@@ -16,7 +16,7 @@
 	</a>
 
 	<br />
-	<a href="<c:url value="/index" />"> <spring:message
+	<a href="<c:url value="/inquiries/fill" />"> <spring:message
 			code="label.back" />
 	</a>
 	<br />
@@ -25,7 +25,7 @@
 		<spring:message code="label.questions" />
 	</h2>
 
-	<c:url var="saveUrl" value="../addQuestion?inquiryId=${inquiry.id}" />
+	<c:url var="saveUrl" value="/inquiry/${inquiry.id}/question/add" />
 	<form:form method="post" action="${saveUrl}" commandName="question">
 		<table>
 			<tr>
@@ -63,23 +63,20 @@
 	<h3>
 		<spring:message code="label.listQuestions" />
 	</h3>
-	<c:if test="${!empty inquiry.getQuestions()}">
-		<table class="data">
+		<table>
 			<c:forEach items="${inquiry.getQuestions()}" var="question">
 				<tr>
 					<td><textarea rows="5" cols="30" readonly="readonly" style="background:#808080" >${question.body}</textarea>
 					</td>
 					<td>Множественный? <br />${question.multivalue}</td>
 					<td><a
-						href="../question/delete/${question.id}?inquiryId=${inquiry.id}"><spring:message
+						href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/delete" />"><spring:message
 								code="label.delete" /></a> <br /> <a
-						href="../inquiry/${inquiry.id}/question/${question.id}"><spring:message
-								code="label.edit" /></a></td>
+						href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/answers/fill" />"><spring:message
+								code="label.fill" /></a></td>
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if>
-
 
 </body>
 </html>

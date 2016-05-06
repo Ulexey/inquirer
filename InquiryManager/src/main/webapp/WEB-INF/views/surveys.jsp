@@ -16,7 +16,7 @@
 	</a>
 
 	<br />
-	<a href="<c:url value="/index" />"> <spring:message
+	<a href="<c:url value="/inquiries/fill" />"> <spring:message
 			code="label.back" />
 	</a>
 	<br />
@@ -63,11 +63,7 @@
 					<td><c:out value="${survey.start}" /></td>
 					<td><c:out value="${survey.stop}" /></td>
 
-					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
-								code="label.delete" /></a><br/>
-					<a href="add/${survey.id}"><spring:message
-								code="label.edit" /></a><br/>
-								
+					<td>						
 													<a href="${survey.id}/show"><spring:message
 								code="label.show" /></a><br/>
 					</td>

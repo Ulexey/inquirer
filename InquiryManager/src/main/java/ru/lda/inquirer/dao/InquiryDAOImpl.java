@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import ru.lda.inquirer.domain.Inquiry;
 
 @Repository
-public class InquiryDAOImpl implements InquiryDAO{
+public class InquiryDAOImpl implements InquiryDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -27,12 +27,10 @@ public class InquiryDAOImpl implements InquiryDAO{
 
 	@Override
 	public void removeInquiry(Long id) {
-		Inquiry inquiry= (Inquiry) sessionFactory.getCurrentSession().load(Inquiry.class, id);
-		if(inquiry != null){
-			sessionFactory.getCurrentSession().delete(inquiry);
-		}
+		Inquiry inquiry = (Inquiry) sessionFactory.getCurrentSession().load(Inquiry.class, id);
+		sessionFactory.getCurrentSession().delete(inquiry);
 	}
-	
+
 	@Override
 	public Inquiry findInquiryById(Long id) {
 		return (Inquiry) sessionFactory.getCurrentSession().load(Inquiry.class, id);

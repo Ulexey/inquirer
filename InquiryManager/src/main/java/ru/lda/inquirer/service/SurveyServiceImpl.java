@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.lda.inquirer.dao.ResultDAOImpl;
 import ru.lda.inquirer.dao.SurveyDAO;
-import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Result;
 import ru.lda.inquirer.domain.Survey;
 

@@ -10,17 +10,14 @@
 <title><spring:message code="label.title" /></title>
 </head>
 <body>
-
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
 	<a href="<c:url value="/index" />"> <spring:message
 			code="label.back" />
 	</a>
 	<br />
-
 	<br />
 	<a href="<c:url value="/survey/list" />"> <spring:message
 			code="label.listSurveys" />
@@ -29,7 +26,8 @@
 	<h2>
 		<spring:message code="label.inquiries" />
 	</h2>
-	<form:form method="post" action="addInquiry" commandName="inquiry">
+	<c:url var="saveUrl" value="/inquiry/add" />
+	<form:form method="post" action="${saveUrl }" commandName="inquiry">
 		<table>
 			<tr>
 				<td><form:label path="body">
@@ -43,27 +41,26 @@
 				<td><input type="submit"
 					value="<spring:message code="label.addinquiry"/>" /></td>
 			</tr>
-
 		</table>
 	</form:form>
-
 	<h3>
 		<spring:message code="label.listInquiries" />
 	</h3>
-	<c:if test="${!empty inquiryList}">
-		<table class="data">
-			<c:forEach items="${inquiryList}" var="inquiry">
+
+		<table>
+			<c:forEach items="${inquiries}" var="inquiry">
 				<tr>
 					<td><textarea rows="5" cols="30" readonly="readonly"
 							style="background: #808080">${inquiry.body}</textarea></td>
-					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
-								code="label.delete" /></a><br /> <a href="inquiry/${inquiry.id}"><spring:message
-								code="label.edit" /></a><br /> <a
-						href="inquiry/${inquiry.id}/survey/list?fio="><spring:message
+					<td><a href="<c:url value="/inquiry/${inquiry.id}/delete" />"><spring:message
+								code="label.delete" /></a><br /> <a
+						href="<c:url value="/inquiry/${inquiry.id}/questions/fill" />"><spring:message
+								code="label.fill" /></a><br /> <a
+						href="<c:url value="/inquiry/${inquiry.id}/surveys/fill?fio=" />"><spring:message
 								code="label.execute" /></a></td>
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if>
+
 </body>
 </html>

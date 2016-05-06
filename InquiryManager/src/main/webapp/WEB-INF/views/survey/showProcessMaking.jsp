@@ -21,7 +21,7 @@
 	</a>
 	<br />
 	<h1><spring:message code="label.survey.run" /></h1>
-<form:form method="post" action="save" commandName="resultForm" >
+<form:form method="post" action="finish" commandName="resultForm" >
     <table>
 	<tbody>
 
