@@ -6,16 +6,30 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http access-denied-page="/error403.jsp">
-<!-- ЭТО НАДО УБРАТь -->	<intercept-url pattern="/*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/index*" access="ROLE_USER,ROLE_ANONYMOUS" />
-		<intercept-url pattern="/add*" access="ROLE_ADMIN" />
-		<intercept-url pattern="/delete/*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiries/fill*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
+		<intercept-url pattern="/inquiry/**/surveys/fill*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
+		<intercept-url pattern="/inquiry/**/survey/add*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
+		<intercept-url pattern="/inquiry/**/survey/**/start*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
+		<intercept-url pattern="/inquiry/**/survey/**/finish*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
+
+		<intercept-url pattern="/inquiry/**/questions/fill" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiry/**/question/**/delete" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiry/**/question/add*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiry/**/survey/**/show" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiry/**/delete" access="ROLE_ADMIN" />
+		<intercept-url pattern="/surveys/list" access="ROLE_ADMIN" />
+		
+		<intercept-url pattern="/inquirer/inquiry/**/question/**/answers/fill" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquirer/inquiry/**/question/**/answer/add*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquirer/inquiry/**/question/**/answer/**/delete" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquirer/inquiry/**/question/**/answer/**/edit*" access="ROLE_ADMIN" />
+		
+		
 		<form-login login-page="/login.jsp" default-target-url="/index"
 			authentication-failure-url="/login.jsp?error=true" />
 		<logout logout-url="/logout" logout-success-url="/index" />
-<!-- ЭТО НАДО ПЕРЕНАСТРОИТЬ  		
-		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />   -->
-		<anonymous username="guest" granted-authority="ROLE_ADMIN" /> 
+		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 		<remember-me />
 	</http>
 
@@ -24,9 +38,10 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			<user-service>
 				<user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER" />
 				<user name="user1" password="user1" authorities="ROLE_USER" />
-				<user name="user2" password="user2" disabled="true" authorities="ROLE_USER" />
+				<user name="user2" password="user2" disabled="true"
+					authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
-	
+
 </beans:beans>

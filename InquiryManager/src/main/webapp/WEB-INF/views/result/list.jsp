@@ -15,25 +15,36 @@
 	</a>
 	<br />
 	<a href="<c:url value="/index" />"> <spring:message
-			code="label.back" />
+			code="label.index" />
 	</a>
 	<br />
-	
+
+	<br />
 	<c:out value="${results[0].survey.fio }"></c:out>
 	<c:out value="${results[0].survey.start }"></c:out>
 	<c:out value="${results[0].survey.stop }"></c:out>
 	<c:out value="${results[0].survey.status }"></c:out>
-	
+	<br />
 	<table border="true">
 		<tr>
-		<th>Вопрос</th>
-		<th>Выбор</th>
-		<th>Ответ</th>
+			<th>Вопрос</th>
+			<th>Правильный ответ</th>
+			<th>Выбранный ответ</th>
+			<th>Ответ</th>
 		</tr>
 		<c:forEach items="${results}" var="result">
 			<c:if test="${prev != result.answer.question.id}">
 				<tr>
 					<td><c:out value="${result.answer.question.body}" /></td>
+
+
+					<td><c:forEach items="${results}" var="result2">
+							<c:if
+								test="${result.answer.question.id == result2.answer.question.id}">
+								<li type="none"><c:out value="${result2.answer.valid}" /></li>
+							</c:if>
+						</c:forEach></td>
+
 					<td><c:forEach items="${results}" var="result2">
 							<c:if
 								test="${result.answer.question.id == result2.answer.question.id}">
@@ -44,8 +55,7 @@
 					<td><c:forEach items="${results}" var="result2">
 							<c:if
 								test="${result.answer.question.id == result2.answer.question.id}">
-								<li type="none"> <c:out
-										value="${result2.answer.body}" /></li>
+								<li type="none"><c:out value="${result2.answer.body}" /></li>
 							</c:if>
 						</c:forEach></td>
 					<c:set var="prev" value="${result.answer.question.id}" />

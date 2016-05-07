@@ -14,12 +14,12 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
-	<a href="<c:url value="/inquiries/fill" />"> <spring:message
-			code="label.back" />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.index" />
 	</a>
 	<br />
+
 
 	<h2>
 		<spring:message code="label.questions" />

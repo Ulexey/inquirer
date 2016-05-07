@@ -48,6 +48,7 @@ public class InquiryController {
 	private ResultService resultService;
 
 	// опросы
+	
 	@RequestMapping("/inquiries/fill")
 	public String fillInquires(ModelMap map) {
 		map.put("inquiry", new Inquiry());
@@ -168,7 +169,7 @@ public class InquiryController {
 	}
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
-	public String postAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,@ModelAttribute("resultForm") ResultForm resultForm,
+	public String addSurveyPost(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,@ModelAttribute("resultForm") ResultForm resultForm,
 			BindingResult result, Model model) {
 		Inquiry inqury = inquiryService.findInquiryById(inquiryId);
 		survey.setInquiry(inqury);
@@ -192,16 +193,8 @@ public class InquiryController {
 
 	}
 
-	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add/{surveyId}", method = RequestMethod.GET)
-	public String addSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
-			ModelMap model) {
-		Survey survey = surveyService.findSurveyById(surveyId);
-		model.put("survey",survey);
-		return "result";
-	}
-
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "show", method = RequestMethod.POST)
-	public String showAddSurvey(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
+	public String addSurveyShow(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
 			BindingResult result, ModelMap map) {
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/surveys/fill?fio="
 				+ survey.getFio().trim().replace(" ", "%20");
@@ -229,7 +222,7 @@ public class InquiryController {
 	}
 	
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/finish", method = RequestMethod.POST)
-	public String saveSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
+	public String finishSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
 			ModelMap model) {
 		for (Question question : resultForm.getQuestions()) {
 			for (Result result : question.getResults()) {
@@ -247,10 +240,10 @@ public class InquiryController {
 			ModelMap map) {
 		Survey survey = surveyService.findSurveyById(surveyId);
 		map.put("results",survey.getResults());
-		return "result/show";
+		return "result/list";
 	}
 	
-	@RequestMapping(value = "/survey/list")
+	@RequestMapping(value = "/surveys/list")
 	public String listSurveys(ModelMap map){
 		List<Survey> surveys = surveyService.listSurvey();
 		map.put("surveys", surveys);

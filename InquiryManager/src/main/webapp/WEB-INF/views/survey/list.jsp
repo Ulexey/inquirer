@@ -14,12 +14,12 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
 	<a href="<c:url value="/index" />"> <spring:message
-			code="label.back" />
+			code="label.index" />
 	</a>
 	<br />
+
 	
 
 	<h2>
@@ -39,8 +39,7 @@
 					<td><c:out value="${survey.start}" /></td>
 					<td><c:out value="${survey.stop}" /></td>
 
-					<td><a href="inquiry/delete/${inquiry.id}"><spring:message
-								code="label.delete" /></a><br/>
+					<td>
 						<a href=<c:url value="/inquiry/${survey.inquiry.id}/survey/${survey.id}/show" />><spring:message
 								code="label.show" /></a><br/>
 					</td>

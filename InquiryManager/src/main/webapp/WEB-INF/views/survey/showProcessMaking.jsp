@@ -14,35 +14,51 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
 	<a href="<c:url value="/index" />"> <spring:message
-			code="label.back" />
+			code="label.index" />
 	</a>
 	<br />
-	<h1><spring:message code="label.survey.run" /></h1>
-<form:form method="post" action="finish" commandName="resultForm" >
-    <table>
-	<tbody>
 
-    <c:forEach items="${resultForm.questions}" var="question" varStatus="q">
-    <br/>
-            <tr><td>
-            <textarea rows="5" cols="30"  readonly="readonly"> ${question.body}</textarea>
-            
-            </td></tr>
-    <c:forEach items="${question.results}" var="result" varStatus="r">
-            <tr><td><form:checkbox path="questions[${q.index}].results[${r.index}].checked" />${result.answer.body}</td></tr>
-                        <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].id" /></td></tr>
-            <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].survey.id" /></td></tr>
-            <tr><td><form:hidden path="questions[${q.index}].results[${r.index}].answer.id" /></td></tr>
-    </c:forEach>
-    </c:forEach>
-    </tbody>
-</table>
-<br/>
-<input type="submit" value="Save" />
-     
-</form:form>
+	<h1>
+		<spring:message code="label.survey.run" />
+	</h1>
+	<form:form method="post" action="finish" commandName="resultForm">
+		<table>
+			<tbody>
+
+				<c:forEach items="${resultForm.questions}" var="question"
+					varStatus="q">
+					<br />
+					<tr>
+						<td><textarea rows="5" cols="30" readonly="readonly"> ${question.body}</textarea>
+
+						</td>
+					</tr>
+					<c:forEach items="${question.results}" var="result" varStatus="r">
+						<tr>
+							<td><form:checkbox
+									path="questions[${q.index}].results[${r.index}].checked" />${result.answer.body}</td>
+						</tr>
+						<tr>
+							<td><form:hidden
+									path="questions[${q.index}].results[${r.index}].id" /></td>
+						</tr>
+						<tr>
+							<td><form:hidden
+									path="questions[${q.index}].results[${r.index}].survey.id" /></td>
+						</tr>
+						<tr>
+							<td><form:hidden
+									path="questions[${q.index}].results[${r.index}].answer.id" /></td>
+						</tr>
+					</c:forEach>
+				</c:forEach>
+			</tbody>
+		</table>
+		<br />
+		<input type="submit" value="Save" />
+
+	</form:form>
 </body>
 </html>

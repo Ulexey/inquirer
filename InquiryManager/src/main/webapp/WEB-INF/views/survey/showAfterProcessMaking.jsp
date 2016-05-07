@@ -14,13 +14,13 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
+	
 	<br />
 	<a href="<c:url value="/index" />"> <spring:message
-			code="label.back" />
+			code="label.index" />
 	</a>
 	<br />
-
+	
 	Опрос пройден
 
 	<table>
@@ -32,12 +32,6 @@
 			<td>${survey.status}</td>
 		</tr>
 	</table>
-
-
-
-	<a href="<c:url value="/index" />"> <spring:message
-			code="label.begin" />
-</a>
 
 
 </body>

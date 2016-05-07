@@ -14,11 +14,11 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
-	<a href="<c:url value="/inquiries/fill" />"> <spring:message
-			code="label.back" />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.index" />
 	</a>
+	<br />
 	<br />
 	<h2>
 		<spring:message code="label.sureys" />
@@ -27,12 +27,12 @@
 	<form:form method="post" action="../survey/add" commandName="survey">
 		<table>
 			<tr>
-				<td><input size="10" type="text" value="${inquiry.id}" 
-					readonly="readonly" style="background: #808080" /> <input size="50"
-					readonly="readonly" type="text" value="${inquiry.body}"
+				<td><input size="10" type="text" value="${inquiry.id}"
+					readonly="readonly" style="background: #808080" /> <input
+					size="50" readonly="readonly" type="text" value="${inquiry.body}"
 					style="background: #808080" /></td>
 			</tr>
-	
+
 			<tr>
 				<td><form:label path="fio">
 						<spring:message code="label.survey.fio" />
@@ -45,7 +45,8 @@
 				<td><input type="submit"
 					value="<spring:message code="label.survey.add.button"/>" name="add" /></td>
 				<td><input type="submit"
-					value="<spring:message code="label.survey.show_by_fio.button"/>" name="show" /></td>
+					value="<spring:message code="label.survey.show_by_fio.button"/>"
+					name="show" /></td>
 			</tr>
 		</table>
 	</form:form>
@@ -63,10 +64,9 @@
 					<td><c:out value="${survey.start}" /></td>
 					<td><c:out value="${survey.stop}" /></td>
 
-					<td>						
-													<a href="${survey.id}/show"><spring:message
-								code="label.show" /></a><br/>
-					</td>
+					<td><a
+						href="<c:url value="/inquiry/${inquiry.id }/survey/${survey.id }/show" />"><spring:message
+								code="label.show" /></a><br /></td>
 				</tr>
 			</c:forEach>
 		</table>

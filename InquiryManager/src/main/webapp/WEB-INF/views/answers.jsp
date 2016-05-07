@@ -14,11 +14,13 @@
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
-
 	<br />
-	<a href="<c:url value="/inquiry/${inquiry.id}/questions/fill" />"> <spring:message code="label.back" />
+	<a href="<c:url value="/index" />"> <spring:message
+			code="label.index" />
 	</a>
 	<br />
+
+
 
 	<h2>
 		<spring:message code="label.answers" />
@@ -30,31 +32,31 @@
 	<form:form method="post" action="${saveUrl}" commandName="answer">
 
 		<table>
-					<tr>
+			<tr>
 
-				<td><input size="10" type="text" value="${inquiry.id}" readonly="readonly" style="background:#808080"/>
-				<input size="50" readonly="readonly" type="text" value="${inquiry.body}" style="background:#808080" />
-				</td>
+				<td><input size="10" type="text" value="${inquiry.id}"
+					readonly="readonly" style="background: #808080" /> <input size="50"
+					readonly="readonly" type="text" value="${inquiry.body}"
+					style="background: #808080" /></td>
 			</tr>
 			<tr>
 
-				<td><input size="10" type="text" value="${question.id}" readonly="readonly" style="background:#808080"/>
-				<input size="50" readonly="readonly" type="text" value="${question.body}" style="background:#808080" />
-				</td>
+				<td><input size="10" type="text" value="${question.id}"
+					readonly="readonly" style="background: #808080" /> <input size="50"
+					readonly="readonly" type="text" value="${question.body}"
+					style="background: #808080" /></td>
 			</tr>
 
 			<tr>
 				<td><form:label path="body">
 						<spring:message code="label.bodyAnswer" />
-					</form:label><br />
-				<form:textarea path="body" rows="5" cols="30" /></td>
+					</form:label><br /> <form:textarea path="body" rows="5" cols="30" /></td>
 			</tr>
 
 			<tr>
 				<td><form:label path="valid">
 						<spring:message code="label.valid" />
-					</form:label><br />
-				<form:radiobutton path="valid" value="true" />Правильный <form:radiobutton
+					</form:label><br /> <form:radiobutton path="valid" value="true" />Правильный <form:radiobutton
 						path="valid" value="false" checked="checked" />Не правильный</td>
 			</tr>
 
@@ -74,11 +76,13 @@
 
 			<c:forEach items="${question.getAnswers()}" var="answer">
 				<tr>
-					<td><textarea rows="5" cols="30" readonly="readonly" style="background:#808080">${answer.body}</textarea></td>
+					<td><textarea rows="5" cols="30" readonly="readonly"
+							style="background: #808080">${answer.body}</textarea></td>
 					<td>Правильный? <br />${answer.valid}</td>
-					<td><a href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/answer/${answer.id}/delete" />"><spring:message
-								code="label.delete" /></a><br />
-					<a href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/answer/${answer.id}/edit" />"><spring:message
+					<td><a
+						href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/answer/${answer.id}/delete" />"><spring:message
+								code="label.delete" /></a><br /> <a
+						href="<c:url value="/inquiry/${inquiry.id}/question/${question.id}/answer/${answer.id}/edit" />"><spring:message
 								code="label.edit" /></a></td>
 				</tr>
 			</c:forEach>
