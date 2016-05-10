@@ -35,9 +35,6 @@ public class Survey {
 
 	@Column(name = "STOP")
 	private Date stop;
-	
-	@Column(name = "STATUS")
-	private String status;
 
 	@OneToMany (mappedBy="survey")
 	@OrderBy (value = "id")
@@ -91,16 +88,5 @@ public class Survey {
 		this.results = results;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	
-	
-	
 
 }

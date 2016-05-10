@@ -65,7 +65,6 @@ public class SurveyDAOImpl implements SurveyDAO {
 		  Session session = sessionFactory.getCurrentSession();
 		  Survey existingSurvey = (Survey) session.get(Survey.class, survey.getId());
 		  existingSurvey.setFio(survey.getFio());
-		  existingSurvey.setStatus(survey.getStatus());
 		  existingSurvey.setStart(survey.getStart());
 		  existingSurvey.setStop(survey.getStop());
 		  existingSurvey.setInquiry(survey.getInquiry());

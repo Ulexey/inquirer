@@ -60,7 +60,6 @@
 				<tr>
 					<td><c:out value="${survey.id}" /></td>
 					<td><c:out value="${survey.fio}" /></td>
-					<td><c:out value="${survey.status}" /></td>
 					<td><c:out value="${survey.start}" /></td>
 					<td><c:out value="${survey.stop}" /></td>
 

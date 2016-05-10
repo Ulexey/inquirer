@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Inquiry;
@@ -61,7 +63,7 @@ public class InquiryController {
 	// опросы
 	
 	@RequestMapping("/inquiries/fill")
-	public String fillInquires(ModelMap map) {
+	public String fillInquires(ModelMap map) throws Exception {
 		methodNameToLog();
 		map.put("inquiry", new Inquiry());
 		map.put("inquiries", inquiryService.listInquiry());
@@ -81,7 +83,7 @@ public class InquiryController {
 	}
 
 	@RequestMapping(value = "/inquiry/add", method = RequestMethod.POST)
-	public String addInquiry(@ModelAttribute("inquiry") Inquiry inquiry) {
+	public String addInquiry(@ModelAttribute("inquiry") Inquiry inquiry)  throws Exception{
 		methodNameToLog();
 		inquiryService.addInquiry(inquiry);
 		messageToLog("inquiry "+inquiry.getId()+" added");
@@ -89,7 +91,7 @@ public class InquiryController {
 	}
 
 	@RequestMapping("/inquiry/{inquiryId}/delete")
-	public String deleteInquiry(@PathVariable("inquiryId") Long inquiryId) {
+	public String deleteInquiry(@PathVariable("inquiryId") Long inquiryId) throws Exception {
 		methodNameToLog();
 		inquiryService.removeInquiry(inquiryId);
 		messageToLog("inquiry "+inquiryId+" deleted");
@@ -100,7 +102,7 @@ public class InquiryController {
 	// Вопросы
 	
 	@RequestMapping("/inquiry/{inquiryId}/questions/fill")
-	public String fillQuestions(@PathVariable("inquiryId") Long inquiryId, ModelMap map) {
+	public String fillQuestions(@PathVariable("inquiryId") Long inquiryId, ModelMap map)  throws Exception{
 		methodNameToLog();
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
 		map.put("question", new Question());
@@ -109,7 +111,7 @@ public class InquiryController {
 	
 
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/delete")
-	public String deleteQuestion(@PathVariable("questionId") Long questionId, @PathVariable("inquiryId") Long inquiryId) {
+	public String deleteQuestion(@PathVariable("questionId") Long questionId, @PathVariable("inquiryId") Long inquiryId) throws Exception {
 		methodNameToLog();
 		questionService.removeQuestion(questionId);
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/questions/fill";
@@ -119,7 +121,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/question/add", method = RequestMethod.POST)
 	public String addQuestion(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("question") Question question,
-			BindingResult result) {
+			BindingResult result) throws Exception {
 		methodNameToLog();
 		question.setInquiry(inquiryService.findInquiryById(inquiryId));
 		questionService.addQuestion(question);
@@ -133,7 +135,7 @@ public class InquiryController {
 	
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/answers/fill")
 	public String fillAnswers(@PathVariable("questionId") Long questionId, @PathVariable("inquiryId") Long inquiryId,
-			ModelMap map) {
+			ModelMap map) throws Exception {
 		methodNameToLog();
 		map.put("question", questionService.findQuestionById(questionId));
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
@@ -144,7 +146,7 @@ public class InquiryController {
 	
 	@RequestMapping(value = "/inquiry/{inquiryId}/question/{questionId}/answer/add", method = RequestMethod.POST)
 	public String addAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
-			@ModelAttribute("answer") Answer answer, BindingResult result) {
+			@ModelAttribute("answer") Answer answer, BindingResult result)  throws Exception{
 		methodNameToLog();
 		answer.setQuestion(questionService.findQuestionById(questionId));
 		answerService.addAnswer(answer);
@@ -155,7 +157,7 @@ public class InquiryController {
 
 	@RequestMapping("/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/delete")
 	public String deleteAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
-			@PathVariable("answerId") Long answerId) {
+			@PathVariable("answerId") Long answerId) throws Exception {
 		methodNameToLog();
 		answerService.removeAnswer(answerId);
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/question/" + questionId+"/answers/fill";
@@ -165,7 +167,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.GET)
 	public String editAnswer(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
-			@PathVariable("answerId") Long answerId, ModelMap map) {
+			@PathVariable("answerId") Long answerId, ModelMap map) throws Exception {
 		methodNameToLog();
 		map.put("answer", answerService.findAnswerById(answerId));
 		map.put("question", questionService.findQuestionById(questionId));
@@ -175,7 +177,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/question/{questionId}/answer/{answerId}/edit", method = RequestMethod.POST)
 	public String editAnswerPost(@PathVariable("inquiryId") Long inquiryId, @PathVariable("questionId") Long questionId,
-			@PathVariable("answerId") Long answerId, @ModelAttribute("answer") Answer answer) {
+			@PathVariable("answerId") Long answerId, @ModelAttribute("answer") Answer answer) throws Exception {
 		methodNameToLog();
 		answer.setId(answerId);
 		answer.setQuestion(questionService.findQuestionById(questionId));
@@ -190,7 +192,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/surveys/fill", method = RequestMethod.GET)
 	public String fillSurveys(@RequestParam("fio") String fio, @PathVariable("inquiryId") Long inquiryId,
-			ModelMap map) {
+			ModelMap map) throws Exception {
 		methodNameToLog();
 		map.put("inquiry", inquiryService.findInquiryById(inquiryId));
 		Survey survey = new Survey();
@@ -202,7 +204,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "add", method = RequestMethod.POST)
 	public String addSurveyPost(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,@ModelAttribute("resultForm") ResultForm resultForm,
-			BindingResult result, Model model) {
+			BindingResult result, Model model) throws Exception {
 		methodNameToLog();
 		Inquiry inqury = inquiryService.findInquiryById(inquiryId);
 		survey.setInquiry(inqury);
@@ -228,7 +230,7 @@ public class InquiryController {
 
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/add", params = "show", method = RequestMethod.POST)
 	public String addSurveyShow(@PathVariable("inquiryId") Long inquiryId, @ModelAttribute("survey") Survey survey,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map) throws Exception {
 		methodNameToLog();
 		String redirectUrl = "redirect:/inquiry/" + inquiryId + "/surveys/fill?fio="
 				+ survey.getFio().trim().replace(" ", "%20");
@@ -237,7 +239,7 @@ public class InquiryController {
 	
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/start", method = RequestMethod.GET)
 	public String startSurvey(@PathVariable("inquiryId") Long inquiryId, @PathVariable("surveyId") Long surveyId, 
-			ModelMap model) {
+			ModelMap model)  throws Exception{
 		methodNameToLog();
 		Inquiry inquiry = inquiryService.findInquiryById(inquiryId);
 		ResultForm resultForm = new ResultForm();
@@ -258,7 +260,7 @@ public class InquiryController {
 	
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/finish", method = RequestMethod.POST)
 	public String finishSurvey(@PathVariable("surveyId") Long surveyId,@ModelAttribute("resultForm") ResultForm resultForm, 
-			ModelMap model) {
+			ModelMap model) throws Exception {
 		methodNameToLog();
 		for (Question question : resultForm.getQuestions()) {
 			for (Result result : question.getResults()) {
@@ -275,7 +277,7 @@ public class InquiryController {
 	
 	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/show", method = RequestMethod.GET)
 	public String showSurvey(@PathVariable("surveyId") Long surveyId,
-			ModelMap map) {
+			ModelMap map) throws Exception{
 		methodNameToLog();
 		Survey survey = surveyService.findSurveyById(surveyId);
 		map.put("results",survey.getResults());
@@ -283,11 +285,28 @@ public class InquiryController {
 	}
 	
 	@RequestMapping(value = "/surveys/list")
-	public String listSurveys(ModelMap map){
+	public String listSurveys(ModelMap map) throws Exception{
 		methodNameToLog();
 		List<Survey> surveys = surveyService.listSurvey();
 		map.put("surveys", surveys);
 		return "survey/list";
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(Exception e)  throws Exception{
+		logger.info(e.getMessage());
+		ModelAndView modelAndView=new ModelAndView("error");
+		modelAndView.addObject("error", e.getMessage());
+		return modelAndView;
+	}
+	
+	@ExceptionHandler()
+	public ModelAndView handleException() throws Exception {
+		String text="Exception in site";
+		logger.info(text);
+		ModelAndView modelAndView=new ModelAndView("error");
+		modelAndView.addObject("error", text);
+		return modelAndView;
 	}
 
 }

@@ -50,7 +50,6 @@ create table survey
      fio  varchar(100) not null,
      start datetime default null,
      stop datetime default null,
-     status varchar(100) default null,
      inquiry_id int not null,
      key fk_survey_inquiry_idx (inquiry_id),
   	constraint fk_survey_inquiry foreign key (inquiry_id) references inquiry (id)

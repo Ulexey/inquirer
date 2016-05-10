@@ -23,7 +23,6 @@
 	<c:out value="${results[0].survey.fio }"></c:out>
 	<c:out value="${results[0].survey.start }"></c:out>
 	<c:out value="${results[0].survey.stop }"></c:out>
-	<c:out value="${results[0].survey.status }"></c:out>
 	<br />
 	<table border="true">
 		<tr>

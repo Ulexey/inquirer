@@ -17,6 +17,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<intercept-url pattern="/inquiry/**/question/add*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/inquiry/**/survey/**/show" access="ROLE_ADMIN" />
 		<intercept-url pattern="/inquiry/**/delete" access="ROLE_ADMIN" />
+		<intercept-url pattern="/inquiry/add*" access="ROLE_ADMIN" />
 		<intercept-url pattern="/surveys/list" access="ROLE_ADMIN" />
 		<intercept-url pattern="/inquirer/inquiry/**/question/**/answers/fill" access="ROLE_ADMIN" />
 		<intercept-url pattern="/inquirer/inquiry/**/question/**/answer/add*" access="ROLE_ADMIN" />

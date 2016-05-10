@@ -29,7 +29,6 @@
 			<td>${survey.fio}</td>
 			<td>${survey.start}</td>
 			<td>${survey.stop}</td>
-			<td>${survey.status}</td>
 		</tr>
 	</table>
 
