@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -291,22 +292,18 @@ public class InquiryController {
 		map.put("surveys", surveys);
 		return "survey/list";
 	}
+
 	
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception e)  throws Exception{
-		logger.info(e.getMessage());
-		ModelAndView modelAndView=new ModelAndView("error");
-		modelAndView.addObject("error", e.getMessage());
+	public ModelAndView handleIOException(Exception exception) {
+		methodNameToLog();
+		ModelAndView modelAndView = new ModelAndView("error");
+		modelAndView.addObject("error", exception.getMessage());
 		return modelAndView;
 	}
 	
-	@ExceptionHandler()
-	public ModelAndView handleException() throws Exception {
-		String text="Exception in site";
-		logger.info(text);
-		ModelAndView modelAndView=new ModelAndView("error");
-		modelAndView.addObject("error", text);
-		return modelAndView;
-	}
+	
+	
+	
 
 }
