@@ -10,7 +10,6 @@
 <title><spring:message code="label.title" /></title>
 </head>
 <body>
-
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
@@ -26,7 +25,6 @@
 	<form:form method="post" action="finish" commandName="resultForm">
 		<table>
 			<tbody>
-
 				<c:forEach items="${resultForm.questions}" var="question"
 					varStatus="q">
 					<br />
@@ -58,7 +56,6 @@
 		</table>
 		<br />
 		<input type="submit" value="<spring:message code="label.answer.button.save"/>" />
-
 	</form:form>
 </body>
 </html>
