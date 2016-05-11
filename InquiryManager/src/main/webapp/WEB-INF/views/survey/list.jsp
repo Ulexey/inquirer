@@ -10,7 +10,6 @@
 <title><spring:message code="label.title" /></title>
 </head>
 <body>
-
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />
 	</a>
@@ -19,25 +18,16 @@
 			code="label.index" />
 	</a>
 	<br />
-
-	
-
 	<h2>
-		<spring:message code="label.sureys" />
+		<spring:message code="label.head.survey.list.full" />
 	</h2>
-
-	<h3>
-		<spring:message code="label.survey.list_survey_by_fio" />
-	</h3>
-
-		<table>
+		<table border="true">
 			<c:forEach items="${surveys}" var="survey">
 				<tr>
 					<td><c:out value="${survey.id}" /></td>
 					<td><c:out value="${survey.fio}" /></td>
 					<td><c:out value="${survey.start}" /></td>
 					<td><c:out value="${survey.stop}" /></td>
-
 					<td>
 						<a href=<c:url value="/inquiry/${survey.inquiry.id}/survey/${survey.id}/show" />><spring:message
 								code="label.show" /></a><br/>

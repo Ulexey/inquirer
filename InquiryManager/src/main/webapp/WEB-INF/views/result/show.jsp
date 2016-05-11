@@ -18,24 +18,28 @@
 			code="label.index" />
 	</a>
 	<br />
+	
+	<h2>
+		<spring:message code="label.results" />
+	</h2>
 
 	<br />
+	<c:out value="${results[0].survey.id }"></c:out>
 	<c:out value="${results[0].survey.fio }"></c:out>
 	<c:out value="${results[0].survey.start }"></c:out>
 	<c:out value="${results[0].survey.stop }"></c:out>
 	<br />
 	<table border="true">
 		<tr>
-			<th>Вопрос</th>
-			<th>Правильный ответ</th>
-			<th>Выбранный ответ</th>
-			<th>Ответ</th>
+			<th><spring:message code="label.result.column.question"/></th>
+			<th><spring:message code="label.result.column.answer.right"/></th>
+			<th><spring:message code="label.result.column.answer.select"/></th>
+			<th><spring:message code="label.result.column.answer"/></th>
 		</tr>
 		<c:forEach items="${results}" var="result">
 			<c:if test="${prev != result.answer.question.id}">
 				<tr>
 					<td><c:out value="${result.answer.question.body}" /></td>
-
 
 					<td><c:forEach items="${results}" var="result2">
 							<c:if

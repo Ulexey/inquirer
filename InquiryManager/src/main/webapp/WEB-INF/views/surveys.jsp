@@ -21,10 +21,11 @@
 	<br />
 	<br />
 	<h2>
-		<spring:message code="label.sureys" />
+		<spring:message code="label.surveys" />
 	</h2>
 
-	<form:form method="post" action="../survey/add" commandName="survey">
+	<c:url var="saveUrl" value="/inquiry/${inquiry.id}/survey/add" />
+	<form:form method="post" action="${saveUrl}" commandName="survey">
 		<table>
 			<tr>
 				<td><input size="10" type="text" value="${inquiry.id}"
@@ -43,33 +44,31 @@
 			</tr>
 			<tr>
 				<td><input type="submit"
-					value="<spring:message code="label.survey.add.button"/>" name="add" /></td>
+					value="<spring:message code="label.button.survey.add"/>" name="add" /></td>
 				<td><input type="submit"
-					value="<spring:message code="label.survey.show_by_fio.button"/>"
+					value="<spring:message code="label.button.survey.show.by.fio"/>"
 					name="show" /></td>
 			</tr>
 		</table>
 	</form:form>
 
 	<h3>
-		<spring:message code="label.survey.list_survey_by_fio" />
+		<spring:message code="label.survey.list.by.fio" />
 	</h3>
-	<c:if test="${!empty surveyList}">
-		<table class="data">
-			<c:forEach items="${surveyList}" var="survey">
-				<tr>
-					<td><c:out value="${survey.id}" /></td>
-					<td><c:out value="${survey.fio}" /></td>
-					<td><c:out value="${survey.start}" /></td>
-					<td><c:out value="${survey.stop}" /></td>
+	<table border="true">
+		<c:forEach items="${surveyList}" var="survey">
+			<tr>
+				<td><c:out value="${survey.id}" /></td>
+				<td><c:out value="${survey.fio}" /></td>
+				<td><c:out value="${survey.start}" /></td>
+				<td><c:out value="${survey.stop}" /></td>
 
-					<td><a
-						href="<c:url value="/inquiry/${inquiry.id }/survey/${survey.id }/show" />"><spring:message
-								code="label.show" /></a><br /></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
+				<td><a
+					href="<c:url value="/inquiry/${inquiry.id }/survey/${survey.id }/results/show" />"><spring:message
+							code="label.show" /></a><br /></td>
+			</tr>
+		</c:forEach>
+	</table>
 
 </body>
 </html>

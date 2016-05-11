@@ -14,8 +14,6 @@
 			code="label.logout" />
 	</a>
 	<br />
-
-	<br />
 	<br />
 	<a href="<c:url value="/surveys/list" />"> <spring:message
 			code="label.listSurveys" />

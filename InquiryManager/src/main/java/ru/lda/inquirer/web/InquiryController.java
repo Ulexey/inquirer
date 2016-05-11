@@ -3,11 +3,8 @@ package ru.lda.inquirer.web;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
-import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import ru.lda.inquirer.domain.Answer;
 import ru.lda.inquirer.domain.Inquiry;
 import ru.lda.inquirer.domain.Question;
@@ -276,13 +272,13 @@ public class InquiryController {
 		return "survey/showAfterProcessMaking";
 	}
 	
-	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/show", method = RequestMethod.GET)
+	@RequestMapping(value = "/inquiry/{inquiryId}/survey/{surveyId}/results/show", method = RequestMethod.GET)
 	public String showSurvey(@PathVariable("surveyId") Long surveyId,
 			ModelMap map) throws Exception{
 		methodNameToLog();
 		Survey survey = surveyService.findSurveyById(surveyId);
 		map.put("results",survey.getResults());
-		return "result/list";
+		return "result/show";
 	}
 	
 	@RequestMapping(value = "/surveys/list")

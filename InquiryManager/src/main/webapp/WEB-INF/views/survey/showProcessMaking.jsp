@@ -57,7 +57,7 @@
 			</tbody>
 		</table>
 		<br />
-		<input type="submit" value="Save" />
+		<input type="submit" value="<spring:message code="label.answer.button.save"/>" />
 
 	</form:form>
 </body>
