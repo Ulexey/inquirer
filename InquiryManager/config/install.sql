@@ -1,3 +1,9 @@
+CREATE USER inquirymanager@localhost identified BY '1234';
+GRANT usage ON *.* TO inquirymanager@localhost identified BY '1234';
+CREATE DATABASE IF NOT EXISTS inquirymanager;
+GRANT ALL privileges ON inquirymanager.* TO inquirymanager@localhost;
+USE inquirymanager;
+
 drop table if exists result;
 drop table if exists survey;
 drop table if exists answer;
